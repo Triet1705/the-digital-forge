@@ -1,0 +1,25 @@
+{
+  "name": "the-digital-forge",
+  "version": "1.0.0",
+  "description": "Một hệ sinh thái ứng dụng hoàn chỉnh mô phỏng trải nghiệm \"Digital Showroom & Car Configurator\" của hãng xe Porsche, bao gồm Web, Mobile và Backend.",
+  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Triet1705/the-digital-forge.git"
+  },
+  "keywords": [],
+  "author": "Triet1705",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Triet1705/the-digital-forge/issues"
+  },
+  "homepage": "https://github.com/Triet1705/the-digital-forge#readme"
+}
