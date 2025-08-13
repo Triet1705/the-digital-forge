@@ -38,14 +38,6 @@ async function main() {
       },
       description:
         "Anyone who dreams of a Porsche usually has an image in their mind: the 911 has been the epitome of an exciting, powerful sports car with day-to-day usability for 60 years. Take a seat behind the wheel of the new 911 and become part of a unique community.",
-      technicalDetails: {
-        height: "1,302 mm",
-        length: "4,542 mm",
-        wheelbase: "2,450 mm",
-        width: "1,852 mm",
-        imageUrl:
-          "/assets/images/911/911-carrera/911-carrera/detail/911-carrera-technical-drawing.svg",
-      },
       galleryImages: {
         drive: [
           {
@@ -82,6 +74,14 @@ async function main() {
               "/assets/images/911/911-carrera/911-carrera/detail/highlight_dynamics.jpg",
           },
         ],
+      },
+      technicalDetails: {
+        height: "1,302 mm",
+        length: "4,542 mm",
+        wheelbase: "2,450 mm",
+        width: "1,852 mm",
+        imageUrl:
+          "/assets/images/911/911-carrera/911-carrera/detail/911-carrera-technical-drawing.svg",
       },
       detailedSpecs: {
         "Power unit": [
