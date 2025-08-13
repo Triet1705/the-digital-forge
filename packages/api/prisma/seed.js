@@ -36,8 +36,109 @@ async function main() {
           "/assets/images/911/911-carrera/911-carrera/base/911-carrera_gentian-blue_carrera-standard_side.avif",
         ],
       },
+      description:
+        "Anyone who dreams of a Porsche usually has an image in their mind: the 911 has been the epitome of an exciting, powerful sports car with day-to-day usability for 60 years. Take a seat behind the wheel of the new 911 and become part of a unique community.",
+      technicalDetails: {
+        height: "1,302 mm",
+        length: "4,542 mm",
+        wheelbase: "2,450 mm",
+        width: "1,852 mm",
+        imageUrl:
+          "/assets/images/911/911-carrera/911-carrera/detail/911-carrera-technical-drawing.svg",
+      },
+      galleryImages: {
+        drive: [
+          {
+            id: "engine",
+            title: "3.0-litre flat-6 engine",
+            description:
+              "The powerful 3.0-litre 6-cylinder flat engine with twin turbochargers will give you goosebumps with its incomparable sound alone. The horizontally oposed construction and the traditional position in the rear end of the vehicle also allows for a low centre of gravity",
+            imageUrl:
+              "/assets/images/911/911-carrera/911-carrera/detail/911-carrera-engine.avif",
+          },
+          {
+            id: "performance",
+            title: "Performance.",
+            description:
+              "Peak performances: 290kW (394PS). Top speed: 294km/h. With this techinal data, a maximum torque of 450Nm and a sprint from 0 to 100km/h in 4.1 s, it's highly unlikely that you will ever want to get out again.",
+            imageUrl:
+              "/assets/images/911/911-carrera/911-carrera/detail/911-carrera-performance.avif",
+          },
+          {
+            id: "pdk",
+            title: "PDK.",
+            description:
+              "The 8-speed Porsche Doppelkupplung (PDK) allows extremely fast gear changes without interrupting the flow of power - even by a milisecond. The PDK combines sports tuning in 1st to 6th gear with efficient overdrive ratios (7th and 8th gear).",
+            imageUrl:
+              "/assets/images/911/911-carrera/911-carrera/detail/911-carrera-pdk.avif",
+          },
+        ],
+        highlights: [
+          {
+            id: "dynamics",
+            title: "Dynamics.",
+            description: "The PASM sports chassis...",
+            imageUrl:
+              "/assets/images/911/911-carrera/911-carrera/detail/highlight_dynamics.jpg",
+          },
+        ],
+      },
+      detailedSpecs: {
+        "Power unit": [
+          { label: "Number of cylinders", value: "6" },
+          { label: "Bore", value: "91.0 mm" },
+          { label: "Stroke", value: "76.4 mm" },
+          { label: "Displacement", value: "2,981 cm³" },
+          { label: "Power (kW)", value: "290 kW" },
+          { label: "Power (PS)", value: "394 PS" },
+          { label: "Maximum engine speed", value: "7,500 1/min" },
+          { label: "Max. torque", value: "450 Nm" },
+        ],
+        Performance: [
+          { label: "Top speed", value: "294 km/h" },
+          {
+            label: "Acceleration 0 - 100 km/h",
+            value: "4.1 s",
+          },
+          {
+            label: "Acceleration 0 - 100 km/h with Sport Chrono Package",
+            value: "3.9 s",
+          },
+        ],
+        "Consumption/Emissions (WLTP)": [
+          {
+            label: "Fuel consumption combined (model range)",
+            value: "10.5 - 10.0 l/100 km",
+          },
+          {
+            label: "CO₂-emissions combined (model range)",
+            value: "240 - 229 g/km",
+          },
+        ],
+        Body: [
+          { label: "Length", value: "4,542 mm" },
+          { label: "Width (with mirrors)", value: "2,033 mm" },
+          { label: "Width (with mirrors folded)", value: "1,834 mm" },
+          { label: "Height", value: "1,302 mm" },
+          { label: "Wheelbase", value: "2,450 mm" },
+          { label: "Turning circle", value: "11.2m" },
+        ],
+        Capacities: [
+          { label: "Luggage compartment volume, front", value: "135 l" },
+          {
+            label: "Open luggage compartment volume (behind front seats)",
+            value: "373 l",
+          },
+          {
+            label:
+              "Open luggage compartment volume (behind front seats) (Rear Seats)",
+            value: "261 l",
+          },
+        ],
+      },
     },
   });
+
   console.log(`Created version with id: ${carrera.id}`);
 
   console.log(`Seeding finished.`);

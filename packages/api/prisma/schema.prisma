@@ -30,5 +30,6 @@ model Version {
   description         String?   
   technicalSpecImage  String?   
   galleryImages       Json?    
-  detailedSpecs       Json?     
+  technicalDetails    Json?
+  detailedSpecs    Json?     
 }
