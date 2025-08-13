@@ -1,18 +1,28 @@
-const PrismaClient = require("@prisma/client");
+const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const getVersionDetails = async (req, res) => {
   try {
-    const { versionId } = req.params();
-    const versions = await prisma.version.findUnique({
-      where: {
-        id: versionId,
+    const { versionId } = req.params;
+    const version = await prisma.version.findUnique({
+      where: { id: versionId },
+      select: {
+        id: true,
+        name: true,
+        basePrice: true,
+        variantGroup: true,
+        carId: true,
+        specs: true,
+        showcaseImages: true,
+        description: true,
+        galleryImages: true,
       },
     });
-    if (!versionId) {
+
+    if (!version) {
       return res
-        .status(400)
-        .json({ error: `Version with ID '${versionId}' not found` });
+        .status(404)
+        .json({ error: `Version with ID '${versionId}' not found.` });
     }
     res.status(200).json(version);
   } catch (error) {
