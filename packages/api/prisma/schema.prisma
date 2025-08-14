@@ -33,3 +33,20 @@ model Version {
   technicalDetails    Json?
   detailedSpecs    Json?     
 }
+
+model OptionCategory {
+  id      String   @id @default(cuid())
+  name    String   @unique 
+  options Option[] 
+}
+
+model Option {
+  id               String   @id @default(cuid())
+  name             String
+  price            Decimal  @db.Decimal(10, 2)
+  swatchImageUrl   String   
+  
+  category         OptionCategory @relation(fields: [categoryId], references: [id])
+  categoryId       String
+  
+}
