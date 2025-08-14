@@ -44,7 +44,7 @@ const getVersionTechnicalDetail = async (req, res) => {
 
     if (!version) {
       return res
-        .status(400)
+        .status(404)
         .json({ error: `Version with ID '${versionId}' not found.` });
     }
     res.status(200).json(version);
