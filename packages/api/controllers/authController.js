@@ -1,6 +1,7 @@
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient, Prisma } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const register = async (req, res) => {
   try {
@@ -57,7 +58,7 @@ const login = async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials." });
     }
 
-    const token = JsonWebTokenError.sign(
+    const token = jwt.sign(
       {
         userId: user.id,
         roles: user.roles,
@@ -73,7 +74,13 @@ const login = async (req, res) => {
   }
 };
 
+const getRoleOptions = (req, res) => {
+  const roles = Object.values(Prisma.Role);
+  res.status(200).json(roles);
+};
+
 module.exports = {
   register,
   login,
+  getRoleOptions,
 };
