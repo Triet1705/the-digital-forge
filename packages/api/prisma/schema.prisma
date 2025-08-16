@@ -51,3 +51,28 @@ model Option {
   category         OptionCategory @relation(fields: [categoryId], references: [id])
   categoryId       String
 }
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum AuthProvider {
+  CREDENTIALS 
+  GOOGLE
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  firstName String
+  lastName  String
+  password  String?       
+  roles     Role[]   @default([USER])
+  
+  provider  AuthProvider @default(CREDENTIALS)
+  googleId  String?      @unique 
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
