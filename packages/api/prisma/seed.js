@@ -141,6 +141,15 @@ async function main() {
 
   console.log(`Created version with id: ${carrera.id}`);
 
+  console.log("Creating option categories...");
+
+  await prisma.optionCategory.createMany({
+    data: [{ name: "Exterior Color" }, { name: "Wheels" }, { name: "Seats" }],
+    skipDuplicates: true,
+  });
+
+  console.log("Option categories created.");
+
   console.log(`Seeding finished.`);
 }
 

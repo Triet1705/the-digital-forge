@@ -3,6 +3,7 @@ const cors = require("cors");
 const carRoutes = require("./routes/carRoutes");
 const versionRoutes = require("./routes/versionRoutes");
 const optionRoutes = require("./routes/optionRoutes");
+const optionCategoryRoutes = require("./routes/optionCategoryRoutes");
 
 const app = express();
 const PORT = 3001;
@@ -16,6 +17,7 @@ app.get("/", (req, res) => {
 app.use("/api/cars", carRoutes);
 app.use("/api/versions", versionRoutes);
 app.use("/api/options", optionRoutes);
+app.use("/api/option-categories", optionCategoryRoutes);
 
 app.listen(PORT, () => {
   console.log(`Backend server is running at http:localhost:${PORT}`);
