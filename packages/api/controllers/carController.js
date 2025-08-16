@@ -1,6 +1,27 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+const getAllCars = async (req, res) => {
+  try {
+    const cars = await prisma.car.findMany({
+      select: {
+        id: true,
+        sku: true,
+        name: true,
+      },
+    });
+
+    if (cars.length === 0) {
+      return res.status(404).json({ error: "No car found in the database." });
+    }
+
+    res.status(200).json(cars);
+  } catch (error) {
+    console.error("Error fetching cars: ", error);
+    res.status(500).json({ error: "Failed to retrive data from server." });
+  }
+};
+
 const getCarVersions = async (req, res) => {
   try {
     const { carId } = req.params;
@@ -34,4 +55,5 @@ const getCarVersions = async (req, res) => {
 
 module.exports = {
   getCarVersions,
+  getAllCars,
 };
