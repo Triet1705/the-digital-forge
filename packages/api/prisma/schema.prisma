@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Car {
+  id        String    @id @default(cuid())
+  sku       String    @unique
+  name      String
+  versions  Version[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Version {
+  id              String   @id @default(cuid())
+  sku             String   @unique
+  name            String
+  basePrice       Decimal  @db.Decimal(12, 2)
+  variantGroup    String
+  specs           Json     
+  showcaseImages  Json     
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  car             Car      @relation(fields: [carId], references: [id])
+  carId           String
+  description         String?   
+  technicalSpecImage  String?   
+  galleryImages       Json?    
+  technicalDetails    Json?
+  detailedSpecs    Json?     
+}
+
+model OptionCategory {
+  id      String   @id @default(cuid())
+  name    String   @unique 
+  options Option[] 
+}
+
+model Option {
+  id               String   @id @default(cuid())
+  sku              String   @unique 
+  name             String
+  price            Decimal  @db.Decimal(10, 2)
+  swatchImageUrl   String
+  category         OptionCategory @relation(fields: [categoryId], references: [id])
+  categoryId       String
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum AuthProvider {
+  CREDENTIALS 
+  GOOGLE
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  firstName String
+  lastName  String
+  password  String?       
+  roles     Role[]   @default([USER])
+  
+  provider  AuthProvider @default(CREDENTIALS)
+  googleId  String?      @unique 
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
