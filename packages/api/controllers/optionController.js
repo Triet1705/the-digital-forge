@@ -45,13 +45,39 @@ const updateOption = async (req, res) => {
   try {
     const { id } = req.params;
     const { name, price } = req.body;
+    let newImageUrl;
+
+    if (req.file) {
+      const oldOption = await prisma.option.findUnique({ where: { id } });
+      if (oldOption && oldOption.swatchImageUrl) {
+        const publicId = oldOption.swatchImageUrl
+          .split("/")
+          .pop()
+          .split(".")[0];
+        await cloudinary.uploader.destroy(
+          `project-tdforge/options/${publicId}`
+        );
+      }
+
+      const result = await new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          { resource_type: "image", folder: "project-tdforge/options" },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }
+        );
+        uploadStream.end(req.file.buffer);
+      });
+      newImageUrl = result.secure_url;
+    }
+
     const updatedOption = await prisma.option.update({
-      where: {
-        id: id,
-      },
+      where: { id: id },
       data: {
         name,
         price: price ? parseFloat(price) : undefined,
+        ...(newImageUrl && { swatchImageUrl: newImageUrl }),
       },
     });
     res.status(200).json(updatedOption);

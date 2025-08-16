@@ -15,6 +15,7 @@ router.put(
   "/:id",
   authMiddleware,
   authorize(["ADMIN"]),
+  upload.single("swatchImage"),
   optionController.updateOption
 );
 router.get("/", optionController.getAllOptions);
