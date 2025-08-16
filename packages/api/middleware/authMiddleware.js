@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
-  if (!authHeader || !authHeader.startWith("Bearer")) {
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res
       .status(401)
       .json({ error: "No token provided or token is invalid" });
@@ -20,9 +20,9 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-const authorize = (role = []) => {
+const authorize = (roles = []) => {
   return (req, res, next) => {
-    if (!req.user || !req.user.roles.some((role) => rols.includes(role))) {
+    if (!req.user || !req.user.roles.some((role) => roles.includes(role))) {
       return res
         .status(403)
         .json({ error: "Forbidden: You do not have the required role." });
