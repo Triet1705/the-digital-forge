@@ -11,6 +11,7 @@ const getCarVersions = async (req, res) => {
       },
       select: {
         id: true,
+        sku: true,
         name: true,
         basePrice: true,
         specs: true,

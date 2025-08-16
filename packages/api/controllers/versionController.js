@@ -8,6 +8,7 @@ const getVersionDetails = async (req, res) => {
       where: { id: versionId },
       select: {
         id: true,
+        sku: true,
         name: true,
         basePrice: true,
         variantGroup: true,
