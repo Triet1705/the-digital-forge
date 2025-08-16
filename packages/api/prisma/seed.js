@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const { Decimal } = require("@prisma/client/runtime/library");
+const bcrypt = require("bcryptjs");
 const prisma = new PrismaClient();
 
 async function main() {
@@ -9,6 +10,7 @@ async function main() {
   await prisma.optionCategory.deleteMany();
   await prisma.version.deleteMany();
   await prisma.car.deleteMany();
+  await prisma.user.deleteMany();
 
   console.log("Old data deleted successfully.");
 
@@ -226,6 +228,21 @@ async function main() {
   });
 
   console.log("Base price updated.");
+
+  console.log("Creating default admin user...");
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash("admin123", salt);
+
+  const adminUser = await prisma.user.create({
+    data: {
+      email: "admin@tdforge.com",
+      firstName: "Admin",
+      lastName: "TDForge",
+      password: hashedPassword,
+      roles: ["ADMIN", "USER"],
+    },
+  });
+  console.log(`Created admin user: ${adminUser.email}`);
 
   console.log(`Seeding finished.`);
 }
