@@ -64,6 +64,7 @@ enum AuthProvider {
 
 model User {
   id        String   @id @default(cuid())
+  userCode  String    @unique
   email     String   @unique
   firstName String
   lastName  String
@@ -75,4 +76,10 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Counter {
+  id    String @id @default(cuid())
+  name  String @unique 
+  value Int    @default(0)
 }
