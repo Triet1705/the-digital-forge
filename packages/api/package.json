@@ -22,8 +22,11 @@
     "multer": "^2.0.2"
   },
   "devDependencies": {
+    "jest": "^30.0.5",
+    "jest-mock-extended": "^4.0.0",
     "nodemon": "^3.1.10",
-    "prisma": "^6.13.0"
+    "prisma": "^6.13.0",
+    "supertest": "^7.1.4"
   },
   "prisma": {
     "seed": "node prisma/seed.js"
