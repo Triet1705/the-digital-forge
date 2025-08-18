@@ -11,6 +11,7 @@ async function main() {
   await prisma.version.deleteMany();
   await prisma.car.deleteMany();
   await prisma.user.deleteMany();
+  await prisma.counter.deleteMany();
 
   console.log("Old data deleted successfully.");
 
@@ -235,6 +236,7 @@ async function main() {
 
   const adminUser = await prisma.user.create({
     data: {
+      userCode: "TDF-000000",
       email: "admin@tdforge.com",
       firstName: "Admin",
       lastName: "TDForge",
@@ -242,7 +244,19 @@ async function main() {
       roles: ["ADMIN", "USER"],
     },
   });
-  console.log(`Created admin user: ${adminUser.email}`);
+  console.log(
+    `Created admin user: ${adminUser.email} with userCode: ${adminUser.userCode}`
+  );
+
+  console.log("Creating initial counter...");
+  await prisma.counter.upsert({
+    where: { name: "userCounter" },
+    update: {},
+    create: {
+      name: "userCounter",
+      value: 0,
+    },
+  });
 
   console.log(`Seeding finished.`);
 }

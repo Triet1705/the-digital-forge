@@ -16,28 +16,41 @@ const register = async (req, res) => {
     });
 
     if (existingUser) {
-      res.status(409).json({ error: "Email already exist." });
+      return res.status(409).json({ error: "Email already exist." });
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const newUser = await prisma.$transaction(async (tx) => {
+      const counter = await tx.counter.update({
+        where: { name: "userCounter" },
+        data: { value: { increment: 1 } },
+      });
 
-    const newUser = await prisma.user.create({
-      data: {
-        firstName,
-        lastName,
-        email,
-        password: hashedPassword,
-      },
-      select: {
-        id: true,
-        firstName: true,
-        lastName: true,
-        email: true,
-        roles: true,
-        createdAt: true,
-      },
+      const userCode = `TDF-${counter.value.toString().padStart(6, "0")}`;
+
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+
+      const createdUser = await tx.user.create({
+        data: {
+          userCode: userCode,
+          firstName,
+          lastName,
+          email,
+          password: hashedPassword,
+        },
+        select: {
+          id: true,
+          userCode: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+          roles: true,
+        },
+      });
+
+      return createdUser;
     });
+
     res.status(201).json(newUser);
   } catch (error) {
     console.error("Error during registration: ", error);

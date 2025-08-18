@@ -24,6 +24,14 @@ app.use("/api/option-categories", optionCategoryRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Backend server is running at http:localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Backend server is running at http:localhost:${PORT}`);
+// });
+
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => {
+    console.log(`Backend server is running at http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
