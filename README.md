@@ -7,4 +7,4 @@ Một hệ sinh thái ứng dụng hoàn chỉnh mô phỏng trải nghiệm "Di
 * **Backend:** Node.js, Express.js
 * **Frontend (Web):** React.js
 * **Frontend (Mobile):** React Native
-* **Database:** PostgreSQL / MongoDB
+* **Database:** PostgreSQL
