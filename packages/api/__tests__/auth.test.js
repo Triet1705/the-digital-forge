@@ -2,6 +2,7 @@ const { prismaMock } = require("./lib/prismaMock");
 const request = require("supertest");
 const app = require("../server");
 const bcrypt = require("bcryptjs");
+const { mock } = require("jest-mock-extended");
 
 describe("Auth API Routes", () => {
   describe("POST /api/auth/register", () => {
@@ -66,6 +67,56 @@ describe("Auth API Routes", () => {
       expect(response.body.error).toEqual("Email already exist.");
 
       expect(prismaMock.user.create).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("POST /api/auth/login", () => {
+    it("should return 200 and a JWT when credentials are valid", async () => {
+      const loginInput = {
+        email: "test@tdforge.com",
+        password: "password123",
+      };
+
+      const hashedPassword = await bcrypt.hash(loginInput.password, 10);
+      const mockUser = {
+        id: "user-id-123",
+        email: loginInput.email,
+        password: hashedPassword,
+        roles: ["USER"],
+      };
+
+      prismaMock.user.findUnique.mockResolvedValue(mockUser);
+
+      const response = await request(app)
+        .post("/api/auth/login")
+        .send(loginInput);
+
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty("token");
+    });
+
+    it("should return 401 when password is incorrect", async () => {
+      const loginInput = {
+        email: "test@tdforge.com",
+        password: "wrongpassword",
+      };
+
+      const correctHashedPassword = await bcrypt.hash("password123", 10);
+      const mockUser = {
+        id: "user-id-123",
+        email: loginInput.email,
+        password: correctHashedPassword,
+        roles: ["USER"],
+      };
+
+      prismaMock.user.findUnique.mockResolvedValue(mockUser);
+
+      const response = await request(app)
+        .post("/api/auth/login")
+        .send(loginInput);
+
+      expect(response.status).toBe(401);
+      expect(response.body.error).toEqual("Invalid credentials.");
     });
   });
 });
