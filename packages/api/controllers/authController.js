@@ -80,7 +80,7 @@ const login = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    res.status(200).json(token);
+    res.status(200).json({ token });
   } catch (error) {
     console.error("Error during login: ", error);
     res.status(500).json({ error: "Failed to Login." });
