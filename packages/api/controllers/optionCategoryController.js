@@ -1,13 +1,8 @@
-const prisma = require("../lib/prisma");
+const optionCategoryService = require("../services/optionCategory.service");
 
 const getAllCategories = async (req, res) => {
   try {
-    const categories = await prisma.optionCategory.findMany({
-      select: {
-        id: true,
-        name: true,
-      },
-    });
+    const categories = await optionCategoryService.getAll();
     res.status(200).json(categories);
   } catch (error) {
     console.error("Error fetching options categories: ", error);
