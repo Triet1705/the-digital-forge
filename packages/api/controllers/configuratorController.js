@@ -1,5 +1,4 @@
-const { PrismaClient, Prisma } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require("../lib/prisma");
 
 const calculateConfigurator = async (req, res) => {
   try {
