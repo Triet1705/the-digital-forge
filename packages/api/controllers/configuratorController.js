@@ -1,6 +1,4 @@
-const prisma = require("../lib/prisma");
-
-const calculateConfigurator = async (req, res) => {
+const calculateConfiguration = (prisma, Prisma) => async (req, res) => {
   try {
     const { versionId } = req.params;
     const { selectedOptionIds } = req.body;
@@ -12,9 +10,7 @@ const calculateConfigurator = async (req, res) => {
     }
 
     const version = await prisma.version.findUnique({
-      where: {
-        id: versionId,
-      },
+      where: { id: versionId },
     });
     if (!version) {
       return res
@@ -25,13 +21,11 @@ const calculateConfigurator = async (req, res) => {
     const basePrice = version.basePrice;
 
     const selectedOptions = await prisma.option.findMany({
-      where: {
-        id: { in: selectedOptionIds },
-      },
+      where: { id: { in: selectedOptionIds } },
     });
 
-    const optionsPrice = selectedOptions.reduce((sum, options) => {
-      return sum.plus(options.price);
+    const optionsPrice = selectedOptions.reduce((sum, option) => {
+      return sum.plus(option.price);
     }, new Prisma.Decimal(0));
 
     const totalPrice = basePrice.plus(optionsPrice);
@@ -44,10 +38,10 @@ const calculateConfigurator = async (req, res) => {
     });
   } catch (error) {
     console.error("Error calculating configurator: ", error);
-    res.status(500).json({ error: "Calculated failed." });
+    res.status(500).json({ error: "Calculation failed." });
   }
 };
 
 module.exports = {
-  calculateConfigurator,
+  calculateConfiguration,
 };

@@ -2,6 +2,8 @@ const express = require("express");
 const versionController = require("../controllers/versionController");
 const router = express.Router();
 const configuratorController = require("../controllers/configuratorController");
+const prisma = require("../lib/prisma");
+const { Prisma } = require("@prisma/client");
 
 router.get("/:versionId", versionController.getVersionDetails);
 router.get(
@@ -11,7 +13,7 @@ router.get(
 
 router.post(
   "/:versionId/calculate",
-  configuratorController.calculateConfigurator
+  configuratorController.calculateConfiguration(prisma, Prisma)
 );
 
 module.exports = router;
