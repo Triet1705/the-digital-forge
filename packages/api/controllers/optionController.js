@@ -1,5 +1,5 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const { Prisma } = require("@prisma/client");
+const prisma = require("../lib/prisma");
 const cloudinary = require("../config/cloudinary");
 
 const createOption = async (req, res) => {
@@ -82,6 +82,14 @@ const updateOption = async (req, res) => {
     });
     res.status(200).json(updatedOption);
   } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2025"
+    ) {
+      return res
+        .status(404)
+        .json({ error: `Option with ID '${req.params.id}' not found.` });
+    }
     console.error("Error updating option: ", error);
     res.status(500).json({ error: "Failed to update option." });
   }
