@@ -30,6 +30,10 @@ const getTechnicalSpecsById = async (id) => {
       technicalDetails: true,
     },
   });
+  if (!version) {
+    throw new Error("VersionNotFound");
+  }
+  return version;
 };
 
 module.exports = {

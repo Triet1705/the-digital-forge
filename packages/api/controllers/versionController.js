@@ -30,11 +30,9 @@ const getVersionTechnicalDetail = async (req, res) => {
       return res.status(400).json({ errors: error.errors });
     }
     if (error.message === "VersionNotFound") {
-      return res
-        .status(404)
-        .json({
-          error: `Version with ID '${req.params.versionId}' not found.`,
-        });
+      return res.status(404).json({
+        error: `Version with ID '${req.params.versionId}' not found.`,
+      });
     }
     res.status(500).json({ error: "Failed to retrieve data from the server." });
   }
