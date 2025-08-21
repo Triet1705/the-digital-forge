@@ -41,7 +41,7 @@ const getAll = async (categoryId) => {
 const getById = async (id) => {
   const option = await prisma.option.findUnique({ where: { id } });
   if (!option) {
-    throw new Error("RecordNotFound!");
+    throw new Error("RecordNotFound");
   }
   return option;
 };
@@ -78,7 +78,7 @@ const update = async (id, optionData, imageBuffer) => {
       error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === "P2025"
     ) {
-      throw new Error("RecordNotFound!");
+      throw new Error("RecordNotFound");
     }
     throw error;
   }
@@ -97,7 +97,7 @@ const remove = async (id) => {
       error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === "P2025"
     ) {
-      throw new Error("RecordNotFound!");
+      throw new Error("RecordNotFound");
     }
   }
 };
