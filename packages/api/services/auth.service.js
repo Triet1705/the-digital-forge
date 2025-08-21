@@ -44,6 +44,15 @@ const register = async (userData) => {
 const login = async (email, password) => {
   const user = await prisma.user.findUnique({
     where: { email },
+    select: {
+      id: true,
+      userCode: true,
+      email: true,
+      firstName: true,
+      lastName: true,
+      roles: true,
+      password: true,
+    },
   });
   if (!user) {
     throw new Error("InvalidCredentials");
@@ -60,7 +69,8 @@ const login = async (email, password) => {
     process.env.JWT_SECRET,
     { expiresIn: "1d" }
   );
-  return token;
+  delete user.password;
+  return { token, user };
 };
 
 module.exports = {
