@@ -1,19 +1,10 @@
-const prisma = require("../lib/prisma");
+const carService = require("../services/car.service");
+const { carIdSchema } = require("../validators/car.validator");
+const { z } = require("zod");
 
 const getAllCars = async (req, res) => {
   try {
-    const cars = await prisma.car.findMany({
-      select: {
-        id: true,
-        sku: true,
-        name: true,
-      },
-    });
-
-    if (cars.length === 0) {
-      return res.status(404).json({ error: "No car found in the database." });
-    }
-
+    const cars = await carService.getAll();
     res.status(200).json(cars);
   } catch (error) {
     console.error("Error fetching cars: ", error);
@@ -23,32 +14,22 @@ const getAllCars = async (req, res) => {
 
 const getCarVersions = async (req, res) => {
   try {
-    const { carId } = req.params;
+    const { carId } = carIdSchema.shape.params.parse(req.params);
 
-    const versions = await prisma.version.findMany({
-      where: {
-        carId: carId,
-      },
-      select: {
-        id: true,
-        sku: true,
-        name: true,
-        basePrice: true,
-        specs: true,
-        showcaseImages: true,
-      },
-    });
-
-    if (versions.length === 0) {
-      return res
-        .status(404)
-        .json({ error: `No versions found for car with ID: ${carId}` });
-    }
-
+    const versions = await carService.getVersionsByCarId(carId);
     res.status(200).json(versions);
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ errors: error.errors });
+    }
+    if (error.message === "CarNotFound") {
+      return res
+        .status(404)
+        .json({ error: `Car with ID '${req.params.carId}' not found.` });
+    }
+
     console.error("Error fetching car versions:", error);
-    res.status(500).json({ error: "Failed to retrieve data from the server." });
+    res.status(500).json({ error: "Failed to retrieve versions." });
   }
 };
 
