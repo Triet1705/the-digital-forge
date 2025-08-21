@@ -1,4 +1,4 @@
-const prisma = require("../lib/prisma");
+const { prisma } = require("../lib/prisma");
 
 const getAll = async () => {
   const categories = await prisma.optionCategory.findMany({

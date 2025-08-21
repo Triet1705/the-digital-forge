@@ -41,26 +41,54 @@ const register = async (userData) => {
   return newUser;
 };
 
-const login = async (email, password) => {
-  const user = await prisma.user.findUnique({
-    where: { email },
-  });
+const login = async (identifier, password) => {
+  let user;
+
+  if (identifier.includes("@")) {
+    user = await prisma.user.findUnique({
+      where: { email: identifier },
+      select: {
+        id: true,
+        userCode: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        roles: true,
+        password: true,
+      },
+    });
+  } else {
+    user = await prisma.user.findUnique({
+      where: { userCode: identifier },
+      select: {
+        id: true,
+        userCode: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        roles: true,
+        password: true,
+      },
+    });
+  }
+
   if (!user) {
     throw new Error("InvalidCredentials");
   }
+
   const isPasswordCorrect = await bcrypt.compare(password, user.password);
   if (!isPasswordCorrect) {
     throw new Error("InvalidCredentials");
   }
+
   const token = jwt.sign(
-    {
-      userId: user.id,
-      roles: user.roles,
-    },
+    { userId: user.id, roles: user.roles },
     process.env.JWT_SECRET,
     { expiresIn: "1d" }
   );
-  return token;
+
+  delete user.password;
+  return { token, user };
 };
 
 module.exports = {

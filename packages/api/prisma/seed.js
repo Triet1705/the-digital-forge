@@ -17,7 +17,6 @@ async function main() {
 
   const porsche911 = await prisma.car.create({
     data: {
-      id: "porsche-911",
       sku: "CAR-911",
       name: "Porsche 911",
     },
@@ -26,7 +25,6 @@ async function main() {
 
   const carrera = await prisma.version.create({
     data: {
-      id: "carrera",
       sku: "V911-CARRERA-BASE",
       name: "911 Carrera",
       basePrice: new Decimal("132000.00"),
@@ -152,7 +150,11 @@ async function main() {
   console.log("Creating option categories...");
 
   await prisma.optionCategory.createMany({
-    data: [{ name: "Exterior Color" }, { name: "Wheels" }, { name: "Seats" }],
+    data: [
+      { name: "Exterior Color", selectionType: "SINGLE" },
+      { name: "Wheels", selectionType: "SINGLE" },
+      { name: "Seats", selectionType: "SINGLE" },
+    ],
     skipDuplicates: true,
   });
 

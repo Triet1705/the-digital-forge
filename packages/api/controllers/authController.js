@@ -1,8 +1,11 @@
 const authService = require("../services/auth.service");
 const { Prisma } = require("@prisma/client");
+const { registerSchema, loginSchema } = require("../validators/auth.validator");
 
 const register = async (req, res) => {
   try {
+    registerSchema.shape.body.parse(req.body);
+
     const newUser = await authService.register(req.body);
     res.status(201).json(newUser);
   } catch (error) {
@@ -16,10 +19,15 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const token = await authService.login(email, password);
-    res.status(200).json({ token });
+    loginSchema.shape.body.parse(req.body);
+
+    const { identifier, password } = req.body;
+    const loginData = await authService.login(identifier, password);
+    res.status(200).json(loginData);
   } catch (error) {
+    if (error instanceof require("zod").ZodError) {
+      return res.status(400).json({ errors: error.errors });
+    }
     if (error.message === "InvalidCredentials") {
       return res.status(401).json({ error: "Invalid credentials." });
     }

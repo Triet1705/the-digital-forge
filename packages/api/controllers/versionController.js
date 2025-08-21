@@ -1,55 +1,39 @@
-const prisma = require("../lib/prisma");
+const versionService = require("../services/version.service");
+const { versionIdSchema } = require("../validators/version.validator");
+const { z } = require("zod");
 
 const getVersionDetails = async (req, res) => {
   try {
-    const { versionId } = req.params;
-    const version = await prisma.version.findUnique({
-      where: { id: versionId },
-      select: {
-        id: true,
-        sku: true,
-        name: true,
-        basePrice: true,
-        variantGroup: true,
-        carId: true,
-        specs: true,
-        showcaseImages: true,
-        description: true,
-        galleryImages: true,
-      },
-    });
-
-    if (!version) {
-      return res
-        .status(404)
-        .json({ error: `Version with ID '${versionId}' not found.` });
-    }
+    const { versionId } = versionIdSchema.shape.params.parse(req.params);
+    const version = await versionService.getDetailsById(versionId);
     res.status(200).json(version);
   } catch (error) {
-    console.error("Error fetching version details:", error);
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ errors: error.errors });
+    }
+    if (error.message === "VersionNotFound") {
+      return res.status(404).json({
+        error: `Version with ID '${req.params.versionId}' not found.`,
+      });
+    }
     res.status(500).json({ error: "Failed to retrieve data from the server." });
   }
 };
 
 const getVersionTechnicalDetail = async (req, res) => {
   try {
-    const { versionId } = req.params;
-    const version = await prisma.version.findUnique({
-      where: { id: versionId },
-      select: {
-        technicalDetails: true,
-        detailedSpecs: true,
-      },
-    });
-
-    if (!version) {
-      return res
-        .status(404)
-        .json({ error: `Version with ID '${versionId}' not found.` });
-    }
-    res.status(200).json(version);
+    const { versionId } = versionIdSchema.shape.params.parse(req.params);
+    const specs = await versionService.getTechnicalSpecsById(versionId);
+    res.status(200).json(specs);
   } catch (error) {
-    console.error("Error fetching version technical details: ", error);
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ errors: error.errors });
+    }
+    if (error.message === "VersionNotFound") {
+      return res.status(404).json({
+        error: `Version with ID '${req.params.versionId}' not found.`,
+      });
+    }
     res.status(500).json({ error: "Failed to retrieve data from the server." });
   }
 };
