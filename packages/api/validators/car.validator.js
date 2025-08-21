@@ -1,11 +1,13 @@
 const { z } = require("zod");
 
-const carIdSchema = z.object({
+const carSkuSchema = z.object({
   params: z.object({
-    carId: z.string().min(1, "Car ID is required"),
+    carSku: z
+      .string()
+      .regex(/^CAR-\w+$/, "Invalid Car SKU format. Expected format: CAR-XXX"),
   }),
 });
 
 module.exports = {
-  carIdSchema,
+  carSkuSchema,
 };

@@ -17,7 +17,6 @@ async function main() {
 
   const porsche911 = await prisma.car.create({
     data: {
-      id: "porsche-911",
       sku: "CAR-911",
       name: "Porsche 911",
     },
@@ -26,7 +25,6 @@ async function main() {
 
   const carrera = await prisma.version.create({
     data: {
-      id: "carrera",
       sku: "V911-CARRERA-BASE",
       name: "911 Carrera",
       basePrice: new Decimal("132000.00"),

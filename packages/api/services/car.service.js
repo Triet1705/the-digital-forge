@@ -10,14 +10,14 @@ const getAll = async () => {
   });
 };
 
-const getVersionsByCarId = async (carId) => {
-  const car = await prisma.car.findUnique({ where: { id: carId } });
+const getVersionsByCarSku = async (carSku) => {
+  const car = await prisma.car.findUnique({ where: { sku: carSku } });
   if (!car) {
     throw new Error("CarNotFound");
   }
 
   return await prisma.version.findMany({
-    where: { carId: carId },
+    where: { carId: car.id },
     select: {
       id: true,
       sku: true,
@@ -31,5 +31,5 @@ const getVersionsByCarId = async (carId) => {
 
 module.exports = {
   getAll,
-  getVersionsByCarId,
+  getVersionsByCarSku,
 };

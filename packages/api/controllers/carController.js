@@ -1,5 +1,5 @@
 const carService = require("../services/car.service");
-const { carIdSchema } = require("../validators/car.validator");
+const { carSkuSchema } = require("../validators/car.validator");
 const { z } = require("zod");
 
 const getAllCars = async (req, res) => {
@@ -14,9 +14,9 @@ const getAllCars = async (req, res) => {
 
 const getCarVersions = async (req, res) => {
   try {
-    const { carId } = carIdSchema.shape.params.parse(req.params);
+    const { carSku } = carSkuSchema.shape.params.parse(req.params);
 
-    const versions = await carService.getVersionsByCarId(carId);
+    const versions = await carService.getVersionsByCarSku(carSku);
     res.status(200).json(versions);
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -25,9 +25,8 @@ const getCarVersions = async (req, res) => {
     if (error.message === "CarNotFound") {
       return res
         .status(404)
-        .json({ error: `Car with ID '${req.params.carId}' not found.` });
+        .json({ error: `Car with SKU '${req.params.carSku}' not found.` });
     }
-
     console.error("Error fetching car versions:", error);
     res.status(500).json({ error: "Failed to retrieve versions." });
   }
