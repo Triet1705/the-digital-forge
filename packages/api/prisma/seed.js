@@ -150,7 +150,11 @@ async function main() {
   console.log("Creating option categories...");
 
   await prisma.optionCategory.createMany({
-    data: [{ name: "Exterior Color" }, { name: "Wheels" }, { name: "Seats" }],
+    data: [
+      { name: "Exterior Color", selectionType: "SINGLE" },
+      { name: "Wheels", selectionType: "SINGLE" },
+      { name: "Seats", selectionType: "SINGLE" },
+    ],
     skipDuplicates: true,
   });
 

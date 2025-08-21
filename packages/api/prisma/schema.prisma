@@ -7,6 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum SelectionType {
+  SINGLE 
+  MULTIPLE 
+}
+
 model Car {
   id        String    @id @default(cuid())
   sku       String    @unique
@@ -38,7 +43,8 @@ model Version {
 
 model OptionCategory {
   id      String   @id @default(cuid())
-  name    String   @unique 
+  name    String   @unique
+  selectionType SelectionType @default(SINGLE)  
   options Option[] 
 }
 

@@ -1,3 +1,5 @@
+const configuratorService = require("../services/configurator.service");
+
 const calculateConfiguration = (prisma, Prisma) => async (req, res) => {
   try {
     const { versionId } = req.params;
@@ -9,35 +11,23 @@ const calculateConfiguration = (prisma, Prisma) => async (req, res) => {
         .json({ error: "selectedOptionIds must be an array." });
     }
 
-    const version = await prisma.version.findUnique({
-      where: { id: versionId },
-    });
-    if (!version) {
-      return res
-        .status(404)
-        .json({ error: `Version with ID '${versionId}' not found.` });
-    }
-
-    const basePrice = version.basePrice;
-
-    const selectedOptions = await prisma.option.findMany({
-      where: { id: { in: selectedOptionIds } },
-    });
-
-    const optionsPrice = selectedOptions.reduce((sum, option) => {
-      return sum.plus(option.price);
-    }, new Prisma.Decimal(0));
-
-    const totalPrice = basePrice.plus(optionsPrice);
-
+    const priceDetails = await configuratorService.calculatePrice(
+      versionId,
+      selectedOptionIds
+    );
     res.status(200).json({
-      basePrice: basePrice.toFixed(2),
-      optionsPrice: optionsPrice.toFixed(2),
-      totalPrice: totalPrice.toFixed(2),
+      ...priceDetails,
       updatedSpecs: {},
     });
   } catch (error) {
-    console.error("Error calculating configurator: ", error);
+    if (error.message.startsWith("ValidationError:")) {
+      return res.status(400).json({ error: error.message });
+    }
+    if (error.message === "VersionNotFound") {
+      return res.status(404).json({
+        error: `Version with ID '${req.params.versionId}' not found.`,
+      });
+    }
     res.status(500).json({ error: "Calculation failed." });
   }
 };
