@@ -71,11 +71,42 @@ const seedCars = async (prisma) => {
         ],
         highlights: [
           {
+            id: "design",
+            title: "Design.",
+            description:
+              "Clear lines and a muscular rear section create a much sharper character. On the GTS models, the newly designed front apron with striking vertical aerodynamic elements including adaptive air intake flaps provide a further distinctive visual feature.",
+            imageUrl:
+              "/assets/images/911/911-carrera/911-carrera/detail/911-carrera-gts-side.avif",
+          },
+          {
+            id: "headlights",
+            title: "Headlights.",
+            description:
+              "Expressive and typically Porsche: the new Matrix LED main headlights, including all lighting functions such as the 4-point daytime running lights, increase the distinctive look of the 911 from afar with their lighting signature.",
+            imageUrl:
+              "/assets/images/911/911-carrera/911-carrera/detail/911-carrera-gts-headlight.avif",
+          },
+          {
             id: "dynamics",
             title: "Dynamics.",
-            description: "The PASM sports chassis...",
+            description:
+              "The PASM sports chassis (-10 mm) with helper springs at the rear and the rear-axle steering increase the performance on the circuit as standard on the 911 Carrera GTS models.",
             imageUrl:
-              "/assets/images/911/911-carrera/911-carrera/detail/highlight_dynamics.jpg",
+              "/assets/images/911/911-carrera/911-carrera/detail/911-carrera-gts-rear.avif",
+          },
+        ],
+        detailImages: [
+          {
+            id: "side-911",
+            imageUrl:
+              "/assets/images/911/911-carrera/911-carrera/detail/911-carrera_gentian-blue_carrera-standard_side_base.webp",
+            altText: "",
+          },
+          {
+            id: "front-911",
+            imageUrl:
+              "/assets/images/911/911-carrera/911-carrera/detail/911-carrera_gentian-blue_carrera-standard_front.avif",
+            altText: "",
           },
         ],
       },
@@ -174,8 +205,7 @@ const seedCars = async (prisma) => {
       },
       showcaseImages: {
         configuratorCard: [
-          "/assets/images/taycan/taycan_turbo-s/details/taycan-turbo-s-front.avif",
-          "/assets/images/taycan/taycan_turbo-s/details/taycan-turbo-s-side.avif",
+          "/assets/images/taycan/taycan_turbo-s/base/taycan_turbo_s_sport_limousine_sideshot.avif",
         ],
       },
       descriptionTitle: "Overfeel.",
