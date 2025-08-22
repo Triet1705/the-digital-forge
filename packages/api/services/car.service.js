@@ -6,6 +6,10 @@ const getAll = async () => {
       id: true,
       sku: true,
       name: true,
+      showcaseImage: true,
+      fuelType: true,
+      category: true,
+      baseSpecs: true,
     },
   });
 };
