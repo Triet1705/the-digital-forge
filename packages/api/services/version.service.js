@@ -1,8 +1,8 @@
 const { prisma } = require("../lib/prisma");
 
-const getDetailsById = async (id) => {
+const getDetailsBySku = async (sku) => {
   const version = await prisma.version.findUnique({
-    where: { id },
+    where: { sku: sku },
     select: {
       id: true,
       sku: true,
@@ -14,6 +14,12 @@ const getDetailsById = async (id) => {
       showcaseImages: true,
       description: true,
       galleryImages: true,
+      car: {
+        select: {
+          name: true,
+          sku: true,
+        },
+      },
     },
   });
   if (!version) {
@@ -22,9 +28,9 @@ const getDetailsById = async (id) => {
   return version;
 };
 
-const getTechnicalSpecsById = async (id) => {
+const getTechnicalSpecsBySku = async (sku) => {
   const version = await prisma.version.findUnique({
-    where: { id },
+    where: { sku },
     select: {
       detailedSpecs: true,
       technicalDetails: true,
@@ -37,6 +43,6 @@ const getTechnicalSpecsById = async (id) => {
 };
 
 module.exports = {
-  getDetailsById,
-  getTechnicalSpecsById,
+  getDetailsBySku,
+  getTechnicalSpecsBySku,
 };

@@ -1,11 +1,14 @@
 const versionService = require("../services/version.service");
-const { versionIdSchema } = require("../validators/version.validator");
+const {
+  versionIdSchema,
+  versionSkuSchema,
+} = require("../validators/version.validator");
 const { z } = require("zod");
 
-const getVersionDetails = async (req, res) => {
+const getVersionBySku = async (req, res) => {
   try {
-    const { versionId } = versionIdSchema.shape.params.parse(req.params);
-    const version = await versionService.getDetailsById(versionId);
+    const { sku } = versionSkuSchema.shape.params.parse(req.params);
+    const version = await versionService.getDetailsBySku(sku);
     res.status(200).json(version);
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -20,10 +23,10 @@ const getVersionDetails = async (req, res) => {
   }
 };
 
-const getVersionTechnicalDetail = async (req, res) => {
+const getVersionTechnicalDetailBySku = async (req, res) => {
   try {
-    const { versionId } = versionIdSchema.shape.params.parse(req.params);
-    const specs = await versionService.getTechnicalSpecsById(versionId);
+    const { sku } = versionSkuSchema.shape.params.parse(req.params);
+    const specs = await versionService.getTechnicalSpecsBySku(sku);
     res.status(200).json(specs);
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -39,6 +42,6 @@ const getVersionTechnicalDetail = async (req, res) => {
 };
 
 module.exports = {
-  getVersionDetails,
-  getVersionTechnicalDetail,
+  getVersionBySku,
+  getVersionTechnicalDetailBySku,
 };
