@@ -52,6 +52,7 @@ model Version {
 
   car             Car      @relation(fields: [carId], references: [id])
   carId           String
+  descriptionTitle    String?
   description         String?   
   technicalSpecImage  String?   
   galleryImages       Json?    
