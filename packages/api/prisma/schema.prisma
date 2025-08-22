@@ -7,6 +7,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum FuelType {
+  GASOLINE
+  HYBRID
+  ELECTRIC
+}
+
+enum CarCategory {
+  SPORT
+  SUV
+  SEDAN
+}
+
 enum SelectionType {
   SINGLE 
   MULTIPLE 
@@ -16,6 +28,12 @@ model Car {
   id        String    @id @default(cuid())
   sku       String    @unique
   name      String
+
+  showcaseImage  String?     
+  fuelType       FuelType[]   
+  category       CarCategory 
+  baseSpecs      Json?
+
   versions  Version[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

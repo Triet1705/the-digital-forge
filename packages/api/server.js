@@ -15,21 +15,12 @@ app.use(cors());
 app.use(express.json());
 
 const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
+  windowMs: (process.env.API_RATE_LIMIT_WINDOW_MINUTES || 15) * 60 * 1000,
+  max: parseInt(process.env.API_RATE_LIMIT_MAX_REQUESTS || 100),
   standardHeaders: true,
   legacyHeaders: false,
   message: {
     error: "Too many requests from this IP, please try again after 15 minutes.",
-  },
-});
-
-const authLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000,
-  max: 10,
-  message: {
-    error:
-      "Too many login attempts from this IP, please try again after an hour.",
   },
 });
 
@@ -41,7 +32,7 @@ app.use("/api/cars", carRoutes);
 app.use("/api/versions", versionRoutes);
 app.use("/api/options", optionRoutes);
 app.use("/api/option-categories", optionCategoryRoutes);
-app.use("/api/auth", authLimiter, authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
 // app.listen(PORT, () => {
