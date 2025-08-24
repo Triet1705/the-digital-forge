@@ -55,13 +55,3 @@
   justify-content: center;
   gap: 20px;
 }
-
-:global(.button.outlined) {
-  color: white;
-  border-color: white;
-
-  &:hover {
-    background-color: white;
-    color: black;
-  }
-}
