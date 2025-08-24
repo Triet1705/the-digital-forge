@@ -1,9 +1,9 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import { mockCars } from "../../../../api/mockCars";
-import Typography from "../../components/ui/typography/Typography";
-import Icon from "../../components/ui/icon/icon";
+import { mockCars } from "../../../../../api/mockCars";
+import Typography from "../../../components/ui/typography/Typography";
+import Icon from "../../../components/ui/icon/icon";
 import "swiper/css";
 import styles from "./CarSwiper.module.scss";
 
@@ -49,10 +49,14 @@ const CarSwiper = () => {
         ))}
       </Swiper>
 
-      <div className={`${styles.swiperButton} ${styles.swiperButtonPrev}`}>
+      <div
+        className={`${styles.swiperButton} ${styles.hexagon}  ${styles.swiperButtonPrev}`}
+      >
         <Icon name="arrowLeft" size={28} />
       </div>
-      <div className={`${styles.swiperButton} ${styles.swiperButtonNext}`}>
+      <div
+        className={`${styles.swiperButton} ${styles.hexagon} ${styles.swiperButtonNext}`}
+      >
         <Icon name="arrowRight" size={28} />
       </div>
     </section>
