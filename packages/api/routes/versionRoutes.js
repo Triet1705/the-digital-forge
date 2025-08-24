@@ -5,10 +5,10 @@ const configuratorController = require("../controllers/configuratorController");
 const prisma = require("../lib/prisma");
 const { Prisma } = require("@prisma/client");
 
-router.get("/:versionId", versionController.getVersionDetails);
+router.get("/:sku", versionController.getVersionBySku);
 router.get(
-  "/:versionId/technical-details",
-  versionController.getVersionTechnicalDetail
+  "/:sku/technical-details",
+  versionController.getVersionTechnicalDetailBySku
 );
 
 router.post(

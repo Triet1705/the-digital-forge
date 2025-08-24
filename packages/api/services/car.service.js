@@ -10,6 +10,11 @@ const getAll = async () => {
       fuelType: true,
       category: true,
       baseSpecs: true,
+      versions: {
+        select: {
+          descriptionTitle: true,
+        },
+      },
     },
   });
 };
