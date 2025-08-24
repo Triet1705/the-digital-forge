@@ -1,0 +1,44 @@
+$color-primary-bg: #6c757d;
+$color-primary-text: #ffffff;
+
+$color-hybrid-bg: rgba(0, 123, 255, 0.2);
+$color-hybrid-text: #007bff;
+
+$color-gasoline-bg: rgba(255, 193, 7, 0.2);
+$color-gasoline-text: #ffc107;
+
+$color-electric-bg: rgba(40, 167, 69, 0.2);
+$color-electric-text: #28a745;
+
+.tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.primary {
+  background-color: $color-primary-bg;
+  color: $color-primary-text;
+}
+
+.hybrid {
+  background-color: $color-hybrid-bg;
+  color: $color-hybrid-text;
+  border: 1px solid $color-hybrid-text;
+}
+
+.gasoline {
+  background-color: $color-gasoline-bg;
+  color: $color-gasoline-text;
+  border: 1px solid $color-gasoline-text;
+}
+
+.electric {
+  background-color: $color-electric-bg;
+  color: $color-electric-text;
+  border: 1px solid $color-electric-text;
+}
