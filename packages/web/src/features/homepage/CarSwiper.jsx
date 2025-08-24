@@ -33,8 +33,8 @@ const CarSwiper = () => {
                 >
                   {car.name}
                 </Typography>
-                <Typography variant="body2" className={styles.carSlogan}>
-                  {car.description}
+                <Typography variant="h3" className={styles.carSlogan}>
+                  {car.descriptionTitle}
                 </Typography>
               </div>
               <div className={styles.slideImageContainer}>
