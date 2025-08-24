@@ -12,6 +12,7 @@ const getDetailsBySku = async (sku) => {
       carId: true,
       specs: true,
       showcaseImages: true,
+      descriptionTitle: true,
       description: true,
       galleryImages: true,
       car: {
