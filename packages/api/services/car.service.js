@@ -12,6 +12,8 @@ const getAll = async () => {
       baseSpecs: true,
       versions: {
         select: {
+          sku: true,
+          name: true,
           descriptionTitle: true,
         },
       },
