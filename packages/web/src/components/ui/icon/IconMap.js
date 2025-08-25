@@ -5,6 +5,8 @@ import TwitterIcon from "../../../assets/icons/TwitterIcon";
 import MenuIcon from "../../../assets/icons/MenuIcon";
 import SearchIcon from "../../../assets/icons/SearchIcon";
 import PersonIcon from "../../../assets/icons/PersonIcon";
+import RightArrowIcon from "../../../assets/icons/RightArrowIcon";
+import CloseIcon from "../../../assets/icons/CloseIcon";
 
 export const ICON_MAP = {
   facebook: FacebookIcon,
@@ -14,4 +16,6 @@ export const ICON_MAP = {
   menu: MenuIcon,
   search: SearchIcon,
   person: PersonIcon,
+  rightArrow: RightArrowIcon,
+  close: CloseIcon,
 };
