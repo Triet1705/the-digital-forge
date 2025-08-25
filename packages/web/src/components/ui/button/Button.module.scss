@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $primary-color: #000000;
 $text-color-primary: #ffffff;
 $bronze-color: #a17c64;
@@ -25,7 +27,8 @@ $border-radius: 3px;
   border-color: $primary-color;
 
   &:hover {
-    background-color: darken($primary-color, 10%);
+    // background-color: darken($primary-color, 10%);
+    background-color: color.adjust($primary-color, $lightness: -10%);
     transform: translateY(-2px);
   }
 }
