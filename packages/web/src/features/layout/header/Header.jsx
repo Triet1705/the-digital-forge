@@ -16,6 +16,7 @@ const Header = () => {
       <div className={styles.centerSection}></div>
       <div className={styles.rightSection}>
         <Icon name="search" size={24} />
+        <Icon name="person" size={32} />
       </div>
     </header>
   );
