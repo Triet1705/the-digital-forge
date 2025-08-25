@@ -22,6 +22,7 @@
     "express-slow-down": "^3.0.0",
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.2",
+    "react-tabs": "^6.1.0",
     "zod": "^4.0.17"
   },
   "devDependencies": {
