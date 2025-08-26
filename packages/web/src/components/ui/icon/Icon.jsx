@@ -19,9 +19,6 @@ const Icon = ({ name, size = 24, className, ...props }) => {
       />
     );
   }
-  if (!IconComponent) {
-    return null;
-  }
 
   const simpleIconData = ICONS[name];
   if (simpleIconData) {

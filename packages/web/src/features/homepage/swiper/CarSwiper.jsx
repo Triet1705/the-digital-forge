@@ -2,8 +2,8 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { mockCars } from "../../../../../api/mockCars";
-import Typography from "../../../components/ui/typography/Typography";
-import Icon from "../../../components/ui/icon/icon";
+import Icon from "../../../components/ui/icon/Icon";
+import CarSlide from "../car-slide/CarSlide";
 import "swiper/css";
 import styles from "./CarSwiper.module.scss";
 
@@ -12,7 +12,7 @@ const CarSwiper = () => {
     <section className={styles.swiperSection}>
       <Swiper
         modules={[Navigation]}
-        spaceBetween={50}
+        spaceBetween={0}
         slidesPerView={1.5}
         centeredSlides={true}
         loop={true}
@@ -21,36 +21,20 @@ const CarSwiper = () => {
           prevEl: `.${styles.swiperButtonPrev}`,
         }}
         className={styles.carSwiper}
+        grabCursor={true}
+        speed={600}
       >
-        {mockCars.map((car) => (
-          <SwiperSlide key={car.sku} className={styles.swiperSlide}>
-            <div className={styles.slideInner}>
-              <div className={styles.slideTextContent}>
-                <Typography
-                  variant="h2"
-                  component="h3"
-                  className={styles.carName}
-                >
-                  {car.name}
-                </Typography>
-                <Typography variant="h3" className={styles.carSlogan}>
-                  {car.descriptionTitle}
-                </Typography>
-              </div>
-              <div className={styles.slideImageContainer}>
-                <img
-                  src={car.imageUrl}
-                  alt={car.name}
-                  className={styles.slideImage}
-                />
-              </div>
-            </div>
+        {mockCars.map((car, index) => (
+          <SwiperSlide
+            key={`${car.sku}-${index}`}
+            className={styles.swiperSlide}
+          >
+            <CarSlide car={car} />
           </SwiperSlide>
         ))}
       </Swiper>
-
       <div
-        className={`${styles.swiperButton} ${styles.hexagon}  ${styles.swiperButtonPrev}`}
+        className={`${styles.swiperButton} ${styles.hexagon} ${styles.swiperButtonPrev}`}
       >
         <Icon name="arrowLeft" size={28} />
       </div>
