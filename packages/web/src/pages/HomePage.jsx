@@ -1,6 +1,6 @@
 import React from "react";
 import CarSwiper from "../features/homepage/swiper/CarSwiper";
-import Icon from "../components/ui/icon/icon";
+import Icon from "../components/ui/icon/Icon";
 import Button from "../components/ui/button/Button";
 import HeroSection from "../features/homepage/hero-section/HeroSection";
 
