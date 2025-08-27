@@ -1,5 +1,6 @@
 // packages/web/src/features/homepage/VersionDisplay.jsx
 import React from "react";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import styles from "./VersionDisplay.module.scss";
 import Button from "../../../components/ui/button/Button";
 import Typography from "../../../components/ui/typography/Typography";
@@ -10,28 +11,35 @@ const VersionDisplay = ({ versions, selectedVersion, onVersionSelect }) => {
     return null;
   }
 
-  if (versions.length > 1) {
-    return (
-      <div className={styles.container}>
-        <Typography variant="body2">
-          Multiple versions UI (Tabs) coming soon...
-        </Typography>
-      </div>
-    );
-  }
+  const selectedIndex = versions.findIndex(
+    (v) => v.sku === selectedVersion.sku
+  );
 
   return (
-    <div className={styles.container}>
-      <Typography variant="h3" component="h4" className={styles.versionName}>
-        {selectedVersion.name}
-      </Typography>
-      <div className={styles.actions}>
-        <Button variant="primary">
-          Explore The Model <Icon name="rightArrow"></Icon>
-        </Button>
-      </div>
-    </div>
+    <Tabs
+      className={styles.tabsContainer}
+      selectedIndex={selectedIndex}
+      onSelect={(index) => onVersionSelect(versions[index])}
+    >
+      <TabList className={styles.tabList}>
+        {versions.map((version) => (
+          <Tab
+            key={version.sku}
+            className={styles.tab}
+            selectedClassName={styles.tabSelected}
+          >
+            {version.name}
+          </Tab>
+        ))}
+      </TabList>
+
+      <TabPanel className={styles.tabPanel}>
+        <div className={styles.actions}>
+          <Button variant="primary">Explore The Model</Button>
+          <Button variant="outlined">Download Brochure</Button>
+        </div>
+      </TabPanel>
+    </Tabs>
   );
 };
-
 export default VersionDisplay;

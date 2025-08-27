@@ -1,3 +1,5 @@
+$breakpoint-tablet: 768px;
+
 .swiperSection {
   width: 100%;
   padding: 80px 0;
@@ -71,7 +73,7 @@
   transform: translateY(-50%);
   z-index: 20;
   background-color: rgba(255, 255, 255, 0.8);
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -80,6 +82,13 @@
   height: 48px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: background-color 0.3s ease;
+  @media (min-width: $breakpoint-tablet) {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.8);
+    align-items: center;
+    justify-content: center;
+    color: #000;
+  }
 
   &:hover {
     background-color: #fff;
