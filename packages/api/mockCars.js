@@ -3,6 +3,12 @@ export const originalCars = [
   {
     sku: "CAR-911",
     name: "911",
+    fuelType: ["GASOLINE"],
+    imageSet: {
+      showcase:
+        "/assets/images/911/911-carrera/911-carrera/base/911-carrera_gentian-blue_carrera-standard_side.avif",
+      title: "/assets/images/911/911-title.svg",
+    },
     versions: [
       {
         sku: "V911-CARRERA-BASE",
@@ -17,6 +23,12 @@ export const originalCars = [
   {
     sku: "CAR-TAYCAN",
     name: "Taycan",
+    fuelType: ["ELECTRIC"],
+    imageSet: {
+      showcase:
+        "/assets/images/taycan/taycan_turbo-s/base/taycan_turbo_s_sport_limousine_sideshot.avif",
+      title: "/assets/images/taycan/taycan-title.svg",
+    },
     versions: [
       {
         sku: "VTAYCAN-TURBO-S",
@@ -31,6 +43,12 @@ export const originalCars = [
   {
     sku: "CAR-PANAMERA",
     name: "Panamera",
+    fuelType: ["HYBRID", "GASOLINE"],
+    imageSet: {
+      showcase:
+        "/assets/images/panamera/show-case/panamera-4-e-hybrid-model-intro.avif",
+      title: "/assets/images/panamera/panamera-title.svg",
+    },
     versions: [
       {
         sku: "VPANAMERA-4-EHYBRID",
@@ -45,6 +63,11 @@ export const originalCars = [
   {
     sku: "CAR-CAYENNE",
     name: "Cayenne",
+    fuelType: ["HYBRID", "GASOLINE"],
+    imageSet: {
+      showcase: "/assets/images/cayenne/show-case/cayenne-side.avif",
+      title: "/assets/images/cayenne/cayenne-title.svg",
+    },
     versions: [
       {
         sku: "VCAYENNE-BASE",
