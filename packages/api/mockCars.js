@@ -1,5 +1,5 @@
 // packages/web/src/api/mockData.js
-export const originalCars = [
+const mockCars = [
   {
     sku: "CAR-911",
     name: "911",
@@ -80,7 +80,4 @@ export const originalCars = [
   },
 ];
 
-export const mockCars = [
-  ...originalCars,
-  ...originalCars.map((car) => ({ ...car, sku: `${car.sku}-2` })),
-];
+export { mockCars };

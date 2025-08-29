@@ -1,13 +1,18 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import { mockCars } from "../../../../../api/mockCars";
 import Icon from "../../../components/ui/icon/Icon";
 import CarSlide from "../car-slide/CarSlide";
 import "swiper/css";
 import styles from "./CarSwiper.module.scss";
 
-const CarSwiper = () => {
+const CarSwiper = ({ cars }) => {
+  if (!cars || cars.length === 0) return null;
+
+  const loopedCars = [
+    ...cars,
+    ...cars.map((car) => ({ ...car, sku: `${car.sku}-loop` })),
+  ];
   return (
     <section className={styles.swiperSection}>
       <Swiper
@@ -24,7 +29,7 @@ const CarSwiper = () => {
         grabCursor={true}
         speed={600}
       >
-        {mockCars.map((car, index) => (
+        {loopedCars.map((car, index) => (
           <SwiperSlide
             key={`${car.sku}-${index}`}
             className={styles.swiperSlide}

@@ -7,11 +7,12 @@ import ModelGrid from "../features/homepage/model-card/ModelGrid";
 import { mockCars } from "../../../api/mockCars";
 
 const HomePage = () => {
+  const cars = mockCars;
   return (
     <div>
       <HeroSection />
-      <CarSwiper />
-      <ModelGrid models={mockCars} />
+      <CarSwiper cars={cars} />
+      <ModelGrid models={cars} />
     </div>
   );
 };
