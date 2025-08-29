@@ -1,0 +1,11 @@
+:root {
+  // Spacing
+  --spacing-m: clamp(16px, 1.25vw + 12px, 36px);
+
+  --spacing-section-x: clamp(24px, 5vw, 80px);
+
+  // Motion
+  --duration-long: 0.6s;
+  --easing-base: cubic-bezier(0.25, 1, 0.5, 1);
+  --easing-porsche: cubic-bezier(0, 0, 0.2, 1);
+}

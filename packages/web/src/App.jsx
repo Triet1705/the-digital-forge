@@ -1,26 +1,8 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import Header from "./features/layout/header/Header";
+import Footer from "./features/layout/footer/Footer";
 import "./App.css";
-
-const Header = () => (
-  <header
-    style={{ padding: "20px", backgroundColor: "#f0f0f0", textAlign: "center" }}
-  >
-    HEADER PLACEHOLDER
-  </header>
-);
-const Footer = () => (
-  <footer
-    style={{
-      padding: "20px",
-      backgroundColor: "#333",
-      color: "white",
-      textAlign: "center",
-    }}
-  >
-    FOOTER PLACEHOLDER
-  </footer>
-);
 
 function App() {
   return (

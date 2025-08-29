@@ -1,5 +1,8 @@
+@use "sass:color";
+
 $primary-color: #000000;
 $text-color-primary: #ffffff;
+$bronze-color: #a17c64;
 $border-radius: 3px;
 
 .button {
@@ -15,6 +18,7 @@ $border-radius: 3px;
   justify-content: center;
   text-transform: uppercase;
   letter-spacing: 1px;
+  gap: 0.5rem;
 }
 
 // Variants
@@ -24,7 +28,8 @@ $border-radius: 3px;
   border-color: $primary-color;
 
   &:hover {
-    background-color: darken($primary-color, 10%);
+    // background-color: darken($primary-color, 10%);
+    background-color: color.adjust($primary-color, $lightness: -10%);
     transform: translateY(-2px);
   }
 }
@@ -36,6 +41,28 @@ $border-radius: 3px;
 
   &:hover {
     background-color: $primary-color;
+    color: $text-color-primary;
+  }
+}
+
+.outlinedWhite {
+  background: transparent;
+  color: $text-color-primary;
+  border-color: $text-color-primary;
+
+  &:hover {
+    background: $text-color-primary;
+    color: $primary-color;
+  }
+}
+
+.outlinedBronze {
+  background: transparent;
+  color: $bronze-color;
+  border-color: $bronze-color;
+
+  &:hover {
+    background: $bronze-color;
     color: $text-color-primary;
   }
 }

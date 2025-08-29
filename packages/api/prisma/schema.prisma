@@ -29,7 +29,7 @@ model Car {
   sku       String    @unique
   name      String
 
-  showcaseImage  String?     
+  imageSet       Json?      
   fuelType       FuelType[]   
   category       CarCategory 
   baseSpecs      Json?

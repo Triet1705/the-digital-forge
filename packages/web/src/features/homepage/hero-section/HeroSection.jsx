@@ -26,12 +26,8 @@ const HeroSection = () => {
           meets artistry, and innovation defines possibility.
         </Typography>
         <div className={styles.actions}>
-          <Button variant="outlined" className={` ${styles.heroOutlinedWhite}`}>
-            Discover All Models
-          </Button>
-          <Button variant="outlined" className={` ${styles.heroOutlinedWhite}`}>
-            <Typography>Build Yours →</Typography>
-          </Button>
+          <Button variant="outlinedBronze">Discover All Models</Button>
+          <Button variant="outlinedWhite">Build Yours →</Button>
         </div>
       </div>
     </section>
