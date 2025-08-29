@@ -8,8 +8,7 @@ const seedCars = async (prisma) => {
       sku: "CAR-911",
       name: "Porsche 911",
       imageSet: {
-        showcase:
-          "/assets/images/911/911-carrera/911-carrera/base/911-carrera_gentian-blue_carrera-standard_side.avif",
+        showcase: "/assets/images/911/show-case/porsche-911-carrera-gts.avif",
         title: "/assets/images/911/911-title.svg",
         card: "",
       },
@@ -184,8 +183,7 @@ const seedCars = async (prisma) => {
       sku: "CAR-TAYCAN",
       name: "Porsche Taycan",
       imageSet: {
-        showcaseImage:
-          "/assets/images/taycan/taycan_turbo-s/base/taycan_turbo_s_sport_limousine_sideshot.avif",
+        showcase: "/assets/images/taycan/show-case/porsche-taycan-2025.webp",
         title: "/assets/images/taycan/taycan-title.svg",
         card: "",
       },
@@ -372,8 +370,8 @@ const seedCars = async (prisma) => {
       sku: "CAR-PANAMERA",
       name: "Porsche Panamera",
       imageSet: {
-        showcaseImage:
-          "/assets/images/panamera/show-case/panamera-4-e-hybrid-model-intro.avif",
+        showcase:
+          "/assets/images/panamera/show-case/porsche-panamera-2025.webp",
         title: "/assets/images/panamera/panamera-title.svg",
         card: "",
       },
@@ -505,11 +503,10 @@ const seedCars = async (prisma) => {
       sku: "CAR-CAYENNE",
       name: "Porsche Cayenne",
       imageSet: {
-        showcaseImage: "/assets/images/cayenne/show-case/cayenne-side.avif",
+        showcase: "/assets/images/cayenne/show-case/porsche-cayenne-2025.webp",
         title: "/assets/images/cayenne/cayenne-title.svg",
         card: "",
       },
-      showcaseImage: "/assets/images/cayenne/show-case/cayenne.webp",
       fuelType: ["HYBRID", "GASOLINE"],
       category: "SUV",
       baseSpecs: {

@@ -13,9 +13,16 @@ const ModelCard = ({ car }) => {
       className={styles.gridCard}
       style={{ backgroundImage: `url(${showcaseImage})` }}
     >
+      <div className={styles.titleContent}></div>
       {titleImage && (
-        <img src={titleImage} alt={car.name} className={styles.titleImage} />
+        <img
+          src={titleImage}
+          alt={car.name}
+          className={styles.titleImage}
+          data-car-name={car.name.toLowerCase()}
+        />
       )}
+
       <div className={styles.overlay}></div>
       <div className={styles.cardContent}>
         <div className={styles.tags}>

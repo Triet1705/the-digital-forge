@@ -4,6 +4,8 @@
   gap: var(--spacing-m);
   padding: 80px var(--spacing-section-x);
   background-color: #000;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .row {
@@ -15,7 +17,7 @@
 .cardWrapper {
   flex: 50;
   height: 60vh;
-  min-height: 450px;
+  min-height: 40vw;
   position: relative;
   transition: flex var(--duration-long) var(--easing-porsche);
 }
@@ -43,6 +45,32 @@
   transform: scale(1.02);
 }
 
+.titleContent {
+  height: 20%;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.8) 0,
+    rgba(0, 0, 0, 0.8) 8.1%,
+    rgba(0, 0, 0, 0.8) 15.5%,
+    rgba(0, 0, 0, 0.8) 22.5%,
+    rgba(0, 0, 0, 0.78) 29%,
+    rgba(0, 0, 0, 0.73) 35.3%,
+    rgba(0, 0, 0, 0.67) 41.2%,
+    rgba(0, 0, 0, 0.6) 47.1%,
+    rgba(0, 0, 0, 0.52) 52.9%,
+    rgba(0, 0, 0, 0.44) 58.8%,
+    rgba(0, 0, 0, 0.33) 64.7%,
+    rgba(0, 0, 0, 0.22) 71%,
+    rgba(0, 0, 0, 0.12) 77.5%,
+    rgba(0, 0, 0, 0.05) 84.5%,
+    rgba(0, 0, 0, 0.011) 91.9%,
+    transparent
+  );
+}
+
 .titleImage {
   position: absolute;
   top: 40px;
@@ -50,9 +78,25 @@
   transform: translateX(-50%);
   width: 140px;
   height: auto;
-  z-index: 3;
+  z-index: 6;
   filter: brightness(0) invert(1);
   transition: opacity 0.5s ease;
+}
+
+.titleImage[data-car-name="911"] {
+  width: 120px;
+}
+
+.titleImage[data-car-name="taycan"] {
+  width: 180px;
+}
+
+.titleImage[data-car-name="panamera"] {
+  width: 200px;
+}
+
+.titleImage[data-car-name="cayenne"] {
+  width: 190px;
 }
 
 .overlay {

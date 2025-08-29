@@ -5,8 +5,7 @@ const mockCars = [
     name: "911",
     fuelType: ["GASOLINE"],
     imageSet: {
-      showcase:
-        "/assets/images/911/911-carrera/911-carrera/base/911-carrera_gentian-blue_carrera-standard_side.avif",
+      showcase: "/assets/images/911/show-case/porsche-911-carrera-gts.avif",
       title: "/assets/images/911/911-title.svg",
     },
     versions: [
@@ -25,8 +24,7 @@ const mockCars = [
     name: "Taycan",
     fuelType: ["ELECTRIC"],
     imageSet: {
-      showcase:
-        "/assets/images/taycan/taycan_turbo-s/base/taycan_turbo_s_sport_limousine_sideshot.avif",
+      showcase: "/assets/images/taycan/show-case/porsche-taycan-2025.webp",
       title: "/assets/images/taycan/taycan-title.svg",
     },
     versions: [
@@ -45,8 +43,7 @@ const mockCars = [
     name: "Panamera",
     fuelType: ["HYBRID", "GASOLINE"],
     imageSet: {
-      showcase:
-        "/assets/images/panamera/show-case/panamera-4-e-hybrid-model-intro.avif",
+      showcase: "/assets/images/panamera/show-case/porsche-panamera-2025.webp",
       title: "/assets/images/panamera/panamera-title.svg",
     },
     versions: [
@@ -65,7 +62,7 @@ const mockCars = [
     name: "Cayenne",
     fuelType: ["HYBRID", "GASOLINE"],
     imageSet: {
-      showcase: "/assets/images/cayenne/show-case/cayenne-side.avif",
+      showcase: "/assets/images/cayenne/show-case/porsche-cayenne-2025.webp",
       title: "/assets/images/cayenne/cayenne-title.svg",
     },
     versions: [
