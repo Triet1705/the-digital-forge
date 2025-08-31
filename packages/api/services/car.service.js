@@ -6,7 +6,7 @@ const getAll = async () => {
       id: true,
       sku: true,
       name: true,
-      showcaseImage: true,
+      imageSet: true,
       fuelType: true,
       category: true,
       baseSpecs: true,

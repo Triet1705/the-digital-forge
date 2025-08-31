@@ -21,14 +21,14 @@ const seedCars = async (prisma) => {
         topSpeed: 294,
         power: 394,
       },
-      version: {
+      versions: {
         create: [
           {
             sku: "V911-CARRERA-BASE",
             name: "911 Carrera",
             basePrice: new Prisma.Decimal("132000.00"),
             variantGroup: "Coupé",
-            carId: porsche911.id,
+            // carId: porsche911.id,
             specs: {
               power: 394,
               acceleration: 3.9,
@@ -195,14 +195,14 @@ const seedCars = async (prisma) => {
         topSpeed: 260,
         power: 952,
       },
-      version: {
+      versions: {
         create: [
           {
             sku: "VTAYCAN-TURBO-S",
             name: "Taycan Turbo S",
             basePrice: new Prisma.Decimal("194900.00"),
             variantGroup: "Sedan",
-            carId: taycan.id,
+            // carId: taycan.id,
             specs: {
               acceleration: 2.4,
               topSpeed: 260,
@@ -383,14 +383,14 @@ const seedCars = async (prisma) => {
         topSpeed: 272,
         power: 353,
       },
-      version: {
+      versions: {
         create: [
           {
             sku: "VPANAMERA-4-EHYBRID",
             name: "Panamera 4 E-Hybrid",
             basePrice: new Prisma.Decimal("115500.00"),
             variantGroup: "Sedan",
-            carId: panamera.id,
+            // carId: panamera.id,
             specs: {
               acceleration: 4.1,
               topSpeed: 280,
@@ -515,14 +515,14 @@ const seedCars = async (prisma) => {
         topSpeed: 248,
         power: 353,
       },
-      version: {
+      versions: {
         create: [
           {
             sku: "VCAYENNE-BASE",
             name: "Cayenne",
             basePrice: new Prisma.Decimal("89500.00"),
             variantGroup: "SUV",
-            carId: cayenne.id,
+            // carId: cayenne.id,
             specs: { power: 353, acceleration: 5.7, topSpeed: 248 },
             showcaseImages: { configuratorCard: [] },
             descriptionTitle: "Further together.",
