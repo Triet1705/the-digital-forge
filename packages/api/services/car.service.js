@@ -9,12 +9,12 @@ const getAll = async () => {
       imageSet: true,
       fuelType: true,
       category: true,
-      baseSpecs: true,
       versions: {
         select: {
           sku: true,
           name: true,
           descriptionTitle: true,
+          baseSpecs: true,
           showcaseImages: true,
         },
       },
@@ -35,6 +35,7 @@ const getVersionsByCarSku = async (carSku) => {
       sku: true,
       name: true,
       basePrice: true,
+      baseSpecs: true,
       specs: true,
       showcaseImages: true,
     },
