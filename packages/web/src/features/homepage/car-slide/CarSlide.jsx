@@ -31,7 +31,6 @@ const CarSlide = ({ car }) => {
         />
       </div>
 
-      {/* PHẦN 3: THÔNG TIN PHIÊN BẢN */}
       <div className={styles.versionWrapper}>
         <VersionDisplay
           versions={car.versions}
