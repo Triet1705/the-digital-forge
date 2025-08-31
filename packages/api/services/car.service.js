@@ -15,6 +15,7 @@ const getAll = async () => {
           sku: true,
           name: true,
           descriptionTitle: true,
+          showcaseImages: true,
         },
       },
     },

@@ -5,6 +5,7 @@ import styles from "../swiper/CarSwiper.module.scss";
 
 const CarSlide = ({ car }) => {
   const [selectedVersion, setSelectedVersion] = useState(car.versions[0]);
+  const imageUrl = selectedVersion.showcaseImages.configuratorCard[0];
 
   const handleVersionSelect = (version) => {
     setSelectedVersion(version);
@@ -25,7 +26,7 @@ const CarSlide = ({ car }) => {
 
       <div className={styles.slideImageContainer}>
         <img
-          src={selectedVersion.imageUrl}
+          src={imageUrl}
           alt={selectedVersion.name}
           className={styles.slideImage}
         />

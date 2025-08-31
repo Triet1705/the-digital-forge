@@ -36,9 +36,9 @@ const seedCars = async (prisma) => {
             },
             showcaseImages: {
               configuratorCard: [
+                "/assets/images/911/911-carrera/911-carrera/base/911-carrera_gentian-blue_carrera-standard_side.avif",
                 "/assets/images/911/911-carrera/911-carrera/base/911-carrera_gentian-blue_carrera-standard_angle-front_base.webp",
                 "/assets/images/911/911-carrera/911-carrera/base/911-carrera_gentian-blue_carrera-standard_angle-rear_base.webp",
-                "/assets/images/911/911-carrera/911-carrera/base/911-carrera_gentian-blue_carrera-standard_side.avif",
               ],
             },
             descriptionTitle: "The one and always.",
@@ -396,7 +396,11 @@ const seedCars = async (prisma) => {
               topSpeed: 280,
               power: 304,
             },
-            showcaseImages: { configuratorCard: [] },
+            showcaseImages: {
+              configuratorCard: [
+                "/assets/images/panamera/show-case/panamera-4-e-hybrid-model-intro.avif",
+              ],
+            },
             descriptionTitle: "More drive. For ambitious destinations.",
             description:
               "The Panamera 4 E-Hybrid turns travel into a sporting event and business into pure pleasure. With impressive system performance, made possible by the perfect interaction between the combustion engine and the electric motor.",
@@ -524,7 +528,11 @@ const seedCars = async (prisma) => {
             variantGroup: "SUV",
             // carId: cayenne.id,
             specs: { power: 353, acceleration: 5.7, topSpeed: 248 },
-            showcaseImages: { configuratorCard: [] },
+            showcaseImages: {
+              configuratorCard: [
+                "/assets/images/cayenne/show-case/cayenne-side.avif",
+              ],
+            },
             descriptionTitle: "Further together.",
             description:
               "Over 20 years ago we asked ourselves if a sports car could celebrate more than the individual. The Cayenne provided the answer. And it continues to perfect it to this day. For people who want to tread their own path.",
