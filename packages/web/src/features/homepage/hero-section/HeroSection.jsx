@@ -2,6 +2,7 @@ import React from "react";
 import Typography from "../../../components/ui/typography/Typography";
 import Button from "../../../components/ui/button/Button";
 import styles from "./HeroSection.module.scss";
+import { Link } from "react-router-dom";
 
 const heroBackgroundImage = "/assets/images/background/porsche_taycan.webp";
 
@@ -26,7 +27,9 @@ const HeroSection = () => {
           meets artistry, and innovation defines possibility.
         </Typography>
         <div className={styles.actions}>
-          <Button variant="outlinedBronze">Discover All Models</Button>
+          <Link to="/models">
+            <Button variant="outlinedBronze">Discover All Models</Button>
+          </Link>
           <Button variant="outlinedWhite">Build Yours →</Button>
         </div>
       </div>

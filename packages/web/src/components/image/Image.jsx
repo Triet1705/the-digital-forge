@@ -12,8 +12,8 @@ const Image = ({
 
   return (
     <img
-      src="src"
-      alt="alt"
+      src={src}
+      alt={alt}
       className={clsx(styles.image, className)}
       loading="lazy"
       onError={handleError}
