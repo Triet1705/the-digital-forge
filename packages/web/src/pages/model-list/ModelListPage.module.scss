@@ -7,6 +7,7 @@ $breakpoint-desktop: 1200px;
   margin: 0 auto;
   padding: 40px var(--spacing-section-x);
   display: grid;
+  background-color: #eeeff2;
 
   grid-template-columns: 1fr;
   gap: 40px;
@@ -17,7 +18,7 @@ $breakpoint-desktop: 1200px;
 }
 
 .sidebar {
-  background-color: #f9f9f9;
+  background-color: #eeeff2;
   border-radius: 16px;
   padding: 24px;
   height: fit-content;
