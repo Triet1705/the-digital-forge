@@ -35,8 +35,9 @@ const VersionDisplay = ({ versions, selectedVersion, onVersionSelect }) => {
 
       <TabPanel className={styles.tabPanel}>
         <div className={styles.actions}>
-          <Button variant="primary">Explore The Model</Button>
-          <Button variant="outlined">Download Brochure</Button>
+          <Button variant="primary">
+            Explore The Model <Icon name="rightArrow" />
+          </Button>
         </div>
       </TabPanel>
     </Tabs>

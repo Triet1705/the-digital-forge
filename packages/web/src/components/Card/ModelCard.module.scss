@@ -1,0 +1,81 @@
+.card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  text-align: left; // Căn lề trái như bản mẫu
+  border: 1px solid #f0f0f0;
+  height: 100%; // Đảm bảo các card có chiều cao bằng nhau
+}
+
+.tagsContainer {
+  align-self: flex-start;
+  margin-bottom: 16px;
+  min-height: 25px;
+}
+
+.imageContainer {
+  margin-bottom: 24px;
+  aspect-ratio: 16 / 9;
+
+  :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.title {
+  color: #111;
+  font-weight: 600 !important;
+  text-align: center; // Tiêu đề chính căn giữa
+}
+
+.subDescription {
+  color: #6c757d;
+  margin-top: 8px;
+  margin-bottom: 24px;
+  text-align: center; // Mô tả phụ căn giữa
+  line-height: 1.5;
+}
+
+// --- CSS MỚI CHO SPECS ---
+.specs {
+  display: flex;
+  flex-direction: column; // Xếp các thông số theo cột dọc
+  gap: 20px; // Khoảng cách giữa các thông số
+  margin-bottom: 32px;
+  text-align: left; // Căn trái nội dung thông số
+}
+
+// .specItem {
+//   // Không cần style phức tạp ở đây nữa
+// }
+
+.specValue {
+  color: #111;
+  font-weight: 600 !important;
+  font-size: 1.75rem !important;
+  line-height: 1.2;
+}
+
+.specLabel {
+  color: #666;
+  font-size: 0.8rem !important;
+  line-height: 1.4;
+  margin-top: 4px;
+}
+
+.actions {
+  margin-top: auto; // Luôn đẩy nút bấm xuống dưới cùng
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}

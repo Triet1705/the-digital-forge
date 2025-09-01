@@ -12,23 +12,28 @@ const seedCars = async (prisma) => {
         title: "/assets/images/911/911-title.svg",
         card: "",
       },
-
       fuelType: ["GASOLINE"],
       category: "SPORT",
-      baseSpecs: {
-        description: "Iconic sports car...",
-        acceleration: 3.9,
-        topSpeed: 294,
-        power: 394,
-      },
-      version: {
+      versions: {
         create: [
           {
             sku: "V911-CARRERA-BASE",
             name: "911 Carrera",
             basePrice: new Prisma.Decimal("132000.00"),
             variantGroup: "Coupé",
-            carId: porsche911.id,
+            baseSpecs: [
+              {
+                label:
+                  "Fuel consumption combined (model range): 10.5 - 10.0 l/100 km, CO₂-emissions combined (model range): 240 - 229 g/km",
+              },
+              {
+                label: "Acceleration 0 -100 km/h with Sport Chrono Package",
+                value: "3.9 s",
+              },
+              { label: "Power (kW) / Power (PS)", value: "290 kW / 394 PS" },
+              { label: "Top speed", value: "294 km/h" },
+            ],
+            // carId: porsche911.id,
             specs: {
               power: 394,
               acceleration: 3.9,
@@ -36,9 +41,9 @@ const seedCars = async (prisma) => {
             },
             showcaseImages: {
               configuratorCard: [
+                "/assets/images/911/911-carrera/911-carrera/base/911-carrera_gentian-blue_carrera-standard_side.avif",
                 "/assets/images/911/911-carrera/911-carrera/base/911-carrera_gentian-blue_carrera-standard_angle-front_base.webp",
                 "/assets/images/911/911-carrera/911-carrera/base/911-carrera_gentian-blue_carrera-standard_angle-rear_base.webp",
-                "/assets/images/911/911-carrera/911-carrera/base/911-carrera_gentian-blue_carrera-standard_side.avif",
               ],
             },
             descriptionTitle: "The one and always.",
@@ -189,20 +194,30 @@ const seedCars = async (prisma) => {
       },
       fuelType: ["ELECTRIC"],
       category: "SEDAN",
-      baseSpecs: {
-        description: "The soul, electrified.",
-        acceleration: 2.4,
-        topSpeed: 260,
-        power: 952,
-      },
-      version: {
+      versions: {
         create: [
           {
             sku: "VTAYCAN-TURBO-S",
             name: "Taycan Turbo S",
             basePrice: new Prisma.Decimal("194900.00"),
             variantGroup: "Sedan",
-            carId: taycan.id,
+            baseSpecs: [
+              {
+                label:
+                  "Electric energy consumption combined (model range): 19.9 - 17.8 kWh/100 km, CO₂-emissions combined (model range): 0 g/km",
+              },
+              {
+                label: "Acceleration 0 -100 km/h with Launch Control",
+                value: "2.4 s",
+              },
+              {
+                label:
+                  "Overboost Power with Launch Control up to (kW) / Overboost Power with Launch COntrol up to (PS)",
+                value: "700 kW / 952 PS",
+              },
+              { label: "Top speed", value: "260 km/h" },
+            ],
+            // carId: taycan.id,
             specs: {
               acceleration: 2.4,
               topSpeed: 260,
@@ -377,26 +392,40 @@ const seedCars = async (prisma) => {
       },
       fuelType: ["HYBRID", "GASOLINE"],
       category: "SEDAN",
-      baseSpecs: {
-        description: "Courage changes everything.",
-        acceleration: 5.1,
-        topSpeed: 272,
-        power: 353,
-      },
-      version: {
+
+      versions: {
         create: [
           {
             sku: "VPANAMERA-4-EHYBRID",
             name: "Panamera 4 E-Hybrid",
             basePrice: new Prisma.Decimal("115500.00"),
             variantGroup: "Sedan",
-            carId: panamera.id,
+            baseSpecs: [
+              {
+                label:
+                  "Fuel consumption (weighted) combined (model range): 3.8 - 3.0 l/100 km, Electric energy consumption (weighted) combined (model range): 28.2 - 17.9 kWh/100 km, CO₂-emissions (weighted) combined (model range): 86 - 69 g/km, Fuel consumption (sustaining) combined (model range): 9.7 - 8.7 l/100 km",
+              },
+              {
+                label: "Acceleration 0 - 100 km/h with Sport Chrono Package",
+                value: "4.1 s",
+              },
+              {
+                label: "Power combined (kW) / Power combined (PS)",
+                value: "346 kW / 470 PS",
+              },
+              { label: "Top speed", value: "280 km/h" },
+            ],
+            // carId: panamera.id,
             specs: {
               acceleration: 4.1,
               topSpeed: 280,
               power: 304,
             },
-            showcaseImages: { configuratorCard: [] },
+            showcaseImages: {
+              configuratorCard: [
+                "/assets/images/panamera/show-case/panamera-4-e-hybrid-model-intro.avif",
+              ],
+            },
             descriptionTitle: "More drive. For ambitious destinations.",
             description:
               "The Panamera 4 E-Hybrid turns travel into a sporting event and business into pure pleasure. With impressive system performance, made possible by the perfect interaction between the combustion engine and the electric motor.",
@@ -509,22 +538,33 @@ const seedCars = async (prisma) => {
       },
       fuelType: ["HYBRID", "GASOLINE"],
       category: "SUV",
-      baseSpecs: {
-        description: "Versatile, dynamic, and spacious.",
-        acceleration: 5.7,
-        topSpeed: 248,
-        power: 353,
-      },
-      version: {
+
+      versions: {
         create: [
           {
             sku: "VCAYENNE-BASE",
             name: "Cayenne",
             basePrice: new Prisma.Decimal("89500.00"),
             variantGroup: "SUV",
-            carId: cayenne.id,
+            baseSpecs: [
+              {
+                label:
+                  "Fuel consumption combined (model range): 11.7 – 10.7 l/100 km, CO₂-emissions combined (model range): 267 – 243 g/km",
+              },
+              {
+                label: "Acceleration 0 - 100 km/h with Sport Chrono Package",
+                value: "5.7 s",
+              },
+              { label: "Power (kW) / Power (PS)", value: "260 kW / 353 PS" },
+              { label: "Top speed", value: "248 km/h" },
+            ],
+            // carId: cayenne.id,
             specs: { power: 353, acceleration: 5.7, topSpeed: 248 },
-            showcaseImages: { configuratorCard: [] },
+            showcaseImages: {
+              configuratorCard: [
+                "/assets/images/cayenne/show-case/cayenne-side.avif",
+              ],
+            },
             descriptionTitle: "Further together.",
             description:
               "Over 20 years ago we asked ourselves if a sports car could celebrate more than the individual. The Cayenne provided the answer. And it continues to perfect it to this day. For people who want to tread their own path.",

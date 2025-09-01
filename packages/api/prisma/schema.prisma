@@ -32,7 +32,7 @@ model Car {
   imageSet       Json?      
   fuelType       FuelType[]   
   category       CarCategory 
-  baseSpecs      Json?
+  
 
   versions  Version[]
   createdAt DateTime  @default(now())
@@ -44,6 +44,7 @@ model Version {
   sku             String   @unique
   name            String
   basePrice       Decimal  @db.Decimal(12, 2)
+  baseSpecs       Json?
   variantGroup    String
   specs           Json     
   showcaseImages  Json     

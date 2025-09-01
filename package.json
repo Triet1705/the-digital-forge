@@ -10,6 +10,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "overrides": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Triet1705/the-digital-forge.git"
