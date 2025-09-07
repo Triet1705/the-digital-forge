@@ -1,0 +1,29 @@
+.sidebar {
+  background-color: #f9f9f9;
+  border-radius: 16px;
+  padding: 24px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+// .filterSection {
+// }
+
+.sectionTitle {
+  margin-bottom: 16px;
+  font-weight: 600 !important;
+}
+
+.radioGroup,
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.resetButton {
+  width: 100%;
+  margin-top: 24px;
+}

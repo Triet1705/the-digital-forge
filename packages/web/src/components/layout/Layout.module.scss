@@ -1,0 +1,27 @@
+@import "../../styles/variables";
+
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 40px var(--spacing-section-x);
+  display: grid;
+  gap: 40px;
+}
+
+.fullwidth {
+  grid-template-columns: 1fr;
+}
+
+.sidebar {
+  grid-template-columns: 1fr;
+
+  @media (min-width: $breakpoint-tablet) {
+    grid-template-columns: 1fr 3fr;
+  }
+}
+
+// .sidebarSlot {
+// }
+
+// .mainSlot {
+// }
