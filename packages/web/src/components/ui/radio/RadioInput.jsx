@@ -18,3 +18,5 @@ const RadioInput = ({ label, name, value, checked, onChange, count }) => {
     </div>
   );
 };
+
+export default RadioInput;

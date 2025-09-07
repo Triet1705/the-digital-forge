@@ -42,3 +42,5 @@ const Collapse = ({ title, children, defaultOpen = false }) => {
     </div>
   );
 };
+
+export default Collapse;
