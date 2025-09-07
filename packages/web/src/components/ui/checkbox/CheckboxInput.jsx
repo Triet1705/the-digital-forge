@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./CheckboxInput.module.scss";
-import Icon from "../icon/Icon";
+import CheckIcon from "../../../assets/icons/CheckIcon";
 
 const CheckboxInput = ({ label, name, value, checked, onChange, count }) => {
   return (
@@ -13,7 +13,9 @@ const CheckboxInput = ({ label, name, value, checked, onChange, count }) => {
         onChange={onChange}
         className={styles.nativeCheckbox}
       />
-      <span className={styles.customCheckbox}></span>
+      <span className={styles.customCheckbox}>
+        <CheckIcon width={24} height={24} />
+      </span>
       <span className={styles.labelText}>{label}</span>
       {count !== undefined && <span className={styles.count}>({count})</span>}
     </label>
