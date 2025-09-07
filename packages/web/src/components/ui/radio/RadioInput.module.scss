@@ -1,0 +1,47 @@
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.nativeRadio {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.customRadio {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s ease;
+
+  &::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #000;
+    transform: scale(0);
+    transition: transform 0.2s ease;
+  }
+}
+
+.nativeRadio:checked + .customRadio {
+  border-color: #000;
+  &::before {
+    transform: scale(1);
+  }
+}
+
+// .labelText {
+// }
+.count {
+  color: #6c757d;
+  margin-left: auto;
+}
