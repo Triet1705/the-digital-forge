@@ -24,13 +24,37 @@ enum SelectionType {
   MULTIPLE 
 }
 
+enum BodyType {
+  COUPE
+  ROADSTER
+  CABRIOLET
+  TARGA
+  GT
+  TURBO_COUPE
+  TURBO_CABRIOLET
+  SPORT_SALOON
+  SPORT_TURISMO
+  CROSS_TURISMO
+  EXECUTIVE
+  MACAN_ELECTRIC
+  SUV
+}
+
+enum SeatType {
+  TWO
+  TWO_PLUS_TWO
+  FOUR_PLUS_ONE
+  FIVE
+  FOUR
+}
+
 model Car {
   id        String    @id @default(cuid())
   sku       String    @unique
   name      String
 
   imageSet       Json?      
-  fuelType       FuelType[]   
+  fuelType       FuelType[]
   category       CarCategory 
   
 
@@ -43,6 +67,8 @@ model Version {
   id              String   @id @default(cuid())
   sku             String   @unique
   name            String
+  bodyType        BodyType[]
+  seats           SeatType[]
   basePrice       Decimal  @db.Decimal(12, 2)
   baseSpecs       Json?
   variantGroup    String
