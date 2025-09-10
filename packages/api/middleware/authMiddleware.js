@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const authMiddleware = (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -13,7 +13,32 @@ const authMiddleware = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = { userId: decoded.userId, roles: decoded.roles };
+
+    const user = await prisma.user.findUnique({
+      where: { id: decoded.userId },
+      include: {
+        roles: {
+          include: {
+            permissions: true,
+          },
+        },
+      },
+    });
+
+    if (!user) {
+      return res.status(401).json({ error: "Unauthorized: User not found." });
+    }
+
+    const permissions = user.roles.flatMap((role) =>
+      role.permissions.map((p) => p.name)
+    );
+
+    req.user = {
+      userId: user.id,
+      roles: user.roles.map((r) => r.name),
+      permissions: [...new Set(permissions)],
+    };
+
     next();
   } catch (error) {
     res.status(401).json({ error: "Unauthorized to access." });
@@ -31,4 +56,15 @@ const authorize = (roles = []) => {
   };
 };
 
-module.exports = { authMiddleware, authorize };
+const checkPermission = (requiredPermission) => {
+  return (req, res, next) => {
+    if (!req.user || !req.user.permissions.includes(requiredPermission)) {
+      return res
+        .status(403)
+        .json({ error: "Forbidden: You do not have the required permission." });
+    }
+    next();
+  };
+};
+
+module.exports = { authMiddleware, authorize, checkPermission };
