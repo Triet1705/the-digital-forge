@@ -7,7 +7,9 @@ const createUserSchema = z.object({
     lastName: z.string().min(1, "Last name is required"),
     email: z.string().email("Invalid email format"),
     password: z.string().min(6, "Password must bt at least 6 characters long"),
-    roles: z.array(z.nativeEnum(Role)).optional(),
+    roles: z
+      .array(z.string().cuid({ message: "Invalid Role ID format." }))
+      .optional(),
   }),
 });
 
@@ -16,7 +18,9 @@ const updateUserSchema = z.object({
     firstName: z.string().min(1).optional(),
     lastName: z.string().min(1).optional(),
     email: z.string().email().optional(),
-    roles: z.array(z.nativeEnum(Role)).optional(),
+    roles: z
+      .array(z.string().cuid({ message: "Invalid Role ID format." }))
+      .optional(),
   }),
 });
 

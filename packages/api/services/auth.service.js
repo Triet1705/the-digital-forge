@@ -10,6 +10,13 @@ const register = async (userData) => {
     throw new Error("EmailInUse");
   }
 
+  const userRole = await prisma.role.findUnique({
+    where: { name: "USER" },
+  });
+  if (!userRole) {
+    throw new Error("Default 'USER' role not found. Please seed the database.");
+  }
+
   const newUser = await prisma.$transaction(async (tx) => {
     const counter = await tx.counter.update({
       where: { name: "userCounter" },
@@ -26,6 +33,9 @@ const register = async (userData) => {
         lastName: userData.lastName,
         email: userData.email,
         password: hashedPassword,
+        roles: {
+          connect: { id: userRole.id },
+        },
       },
       select: {
         id: true,
