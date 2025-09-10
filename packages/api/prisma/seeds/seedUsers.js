@@ -8,6 +8,17 @@ const seedUsers = async (prisma) => {
     create: { name: "userCounter", value: 0 },
   });
 
+  const superAdminRole = await prisma.role.findUnique({
+    where: { name: "SUPER_ADMIN" },
+  });
+
+  if (!superAdminRole) {
+    console.error(
+      "SUPER_ADMIN role not found. Please run seedPermissionsAndRoles first."
+    );
+    return;
+  }
+
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash("admin123", salt);
 
@@ -20,10 +31,12 @@ const seedUsers = async (prisma) => {
       firstName: "Admin",
       lastName: "TDForge",
       password: hashedPassword,
-      roles: ["ADMIN", "USER"],
+      roles: {
+        connect: { id: superAdminRole.id },
+      },
     },
   });
-  console.log(`Ensured admin user exists: ${adminUser.email}`);
+  console.log(`Ensured admin user with SUPER_ADMIN role exists.`);
 };
 
 module.exports = seedUsers;

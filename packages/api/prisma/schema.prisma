@@ -7,6 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum AuthProvider {
+  CREDENTIALS 
+  GOOGLE
+}
+
 enum FuelType {
   GASOLINE
   HYBRID
@@ -48,6 +53,19 @@ enum SeatType {
   FOUR
 }
 
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  IN_DELIVERY
+  COMPLETED
+  CANCELLED
+}
+
+enum DeliveryType {
+  LOCAL
+  INTERNATIONAL
+}
+
 model Car {
   id        String    @id @default(cuid())
   sku       String    @unique
@@ -72,8 +90,8 @@ model Version {
   basePrice       Decimal  @db.Decimal(12, 2)
   baseSpecs       Json?
   variantGroup    String
-  specs           Json     
-  showcaseImages  Json     
+  specs           Json?     
+  showcaseImages  Json?     
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
@@ -84,7 +102,9 @@ model Version {
   technicalSpecImage  String?   
   galleryImages       Json?    
   technicalDetails    Json?
-  detailedSpecs    Json?     
+  detailedSpecs       Json?
+  inventory           Inventory[]
+  savedConfigurations SavedConfiguration[]     
 }
 
 model OptionCategory {
@@ -102,16 +122,24 @@ model Option {
   swatchImageUrl   String
   category         OptionCategory @relation(fields: [categoryId], references: [id])
   categoryId       String
+  savedConfigurations SavedConfiguration[] @relation()
 }
 
-enum Role {
-  USER
-  ADMIN
+model Role {
+  id          String       @id @default(cuid())
+  name        String       @unique
+  description String?
+  
+  users       User[]       @relation()
+  permissions Permission[] @relation()
 }
 
-enum AuthProvider {
-  CREDENTIALS 
-  GOOGLE
+model Permission {
+  id          String   @id @default(cuid())
+  name        String   @unique // "showroom:create", "inventory:update"
+  description String?
+  
+  roles       Role[]   @relation()
 }
 
 model User {
@@ -121,17 +149,82 @@ model User {
   firstName String
   lastName  String
   password  String?       
-  roles     Role[]   @default([USER])
+  roles     Role[]   @relation()
   
   provider  AuthProvider @default(CREDENTIALS)
   googleId  String?      @unique 
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  savedConfigurations SavedConfiguration[]
+  orders              Order[]
 }
 
 model Counter {
   id    String @id @default(cuid())
   name  String @unique 
   value Int    @default(0)
+}
+
+model Showroom {
+  id            String  @id @default(cuid())
+  name          String  @unique
+  address       String
+  latitude      Float
+  longitude     Float
+  isHeadquarter Boolean @default(false)
+  inventory     Inventory[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Inventory {
+  id         String   @id @default(cuid())
+  quantity   Int      @default(0)
+  version    Version  @relation(fields: [versionId], references: [id])
+  versionId  String
+  showroom   Showroom @relation(fields: [showroomId], references: [id])
+  showroomId String
+
+  @@unique([versionId, showroomId])
+}
+
+model SavedConfiguration {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  version   Version  @relation(fields: [versionId], references: [id])
+  versionId String
+  options   Option[] @relation()
+  totalPrice Decimal @db.Decimal(12, 2)
+  createdAt DateTime @default(now())
+  order     Order?
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  orderCode       String      @unique
+  user            User        @relation(fields: [userId], references: [id])
+  userId          String
+  configuration   SavedConfiguration @relation(fields: [configurationId], references: [id])
+  configurationId String      @unique
+  shippingAddress Json
+  status          OrderStatus @default(PENDING)
+  delivery        Delivery?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+model Delivery {
+  id               String       @id @default(cuid())
+  order            Order        @relation(fields: [orderId], references: [id])
+  orderId          String       @unique
+  type             DeliveryType
+  statusMessage    String
+  currentLocation  Json?
+  trackingHistory  Json?
+  estimatedArrival DateTime
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
 }
