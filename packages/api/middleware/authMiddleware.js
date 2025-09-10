@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { prisma } = require("../lib/prisma");
 
 const authMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -41,6 +42,7 @@ const authMiddleware = async (req, res, next) => {
 
     next();
   } catch (error) {
+    console.error("JWT Verification Error:", error.message);
     res.status(401).json({ error: "Unauthorized to access." });
   }
 };
