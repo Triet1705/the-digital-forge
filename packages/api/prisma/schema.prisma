@@ -104,7 +104,8 @@ model Version {
   technicalDetails    Json?
   detailedSpecs       Json?
   inventory           Inventory[]
-  savedConfigurations SavedConfiguration[]     
+  savedConfigurations SavedConfiguration[]    
+  testDrives TestDrive[] 
 }
 
 model OptionCategory {
@@ -159,6 +160,7 @@ model User {
 
   savedConfigurations SavedConfiguration[]
   orders              Order[]
+  testDrives TestDrive[]
 }
 
 model Counter {
@@ -169,6 +171,7 @@ model Counter {
 
 model Showroom {
   id            String  @id @default(cuid())
+  showroomCode  String @unique
   name          String  @unique
   address       String
   latitude      Float
@@ -177,6 +180,7 @@ model Showroom {
   inventory     Inventory[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+  testDrives TestDrive[]
 }
 
 model Inventory {
@@ -192,14 +196,16 @@ model Inventory {
 
 model SavedConfiguration {
   id        String   @id @default(cuid())
+  shareableCode String @unique
   user      User     @relation(fields: [userId], references: [id])
   userId    String
   version   Version  @relation(fields: [versionId], references: [id])
   versionId String
   options   Option[] @relation()
   totalPrice Decimal @db.Decimal(12, 2)
-  createdAt DateTime @default(now())
+  createdAt  DateTime @default(now())
   order     Order?
+  payments  Payment[]
 }
 
 model Order {
@@ -214,10 +220,14 @@ model Order {
   delivery        Delivery?
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
+  payments Payment[] 
+  invoice  Invoice?
+  contract Contract?
 }
 
 model Delivery {
   id               String       @id @default(cuid())
+  deliveryCode     String @unique
   order            Order        @relation(fields: [orderId], references: [id])
   orderId          String       @unique
   type             DeliveryType
@@ -227,4 +237,54 @@ model Delivery {
   estimatedArrival DateTime
   createdAt        DateTime     @default(now())
   updatedAt        DateTime     @updatedAt
+}
+
+model Payment {
+  id              String   @id @default(cuid())
+  order           Order    @relation(fields: [orderId], references: [id])
+  orderId         String
+  configuration   SavedConfiguration @relation(fields: [configurationId], references: [id])
+  configurationId String
+  amount          Decimal  @db.Decimal(12, 2)
+  paymentMethod   String   // e.g., "Stripe", "Bank Transfer"
+  transactionId   String?  @unique
+  status          String   // e.g., "succeeded", "pending", "failed"
+  createdAt       DateTime @default(now())
+}
+
+model Invoice {
+  id        String   @id @default(cuid())
+  order     Order    @relation(fields: [orderId], references: [id])
+  orderId   String   @unique
+  invoiceNumber String @unique
+  issueDate DateTime @default(now())
+  dueDate   DateTime
+  details   Json     // Chi tiết các mục trong hóa đơn
+  total     Decimal  @db.Decimal(12, 2)
+  createdAt DateTime @default(now())
+}
+
+model Contract {
+  id           String   @id @default(cuid())
+  order        Order    @relation(fields: [orderId], references: [id])
+  orderId      String   @unique
+  contractCode String   @unique
+  content      String   // Nội dung hợp đồng
+  signedAt     DateTime?
+  createdAt    DateTime @default(now())
+}
+
+model TestDrive {
+  id          String   @id @default(cuid())
+  requestCode String   @unique
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  version     Version  @relation(fields: [versionId], references: [id])
+  versionId   String
+  showroom    Showroom @relation(fields: [showroomId], references: [id])
+  showroomId  String
+  preferredDate DateTime
+  status      String   @default("PENDING") // PENDING, CONFIRMED, COMPLETED, CANCELLED
+  notes       String?
+  createdAt   DateTime @default(now())
 }

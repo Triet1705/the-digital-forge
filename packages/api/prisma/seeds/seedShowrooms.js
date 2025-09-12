@@ -3,6 +3,13 @@ const prisma = new PrismaClient();
 
 const seedShowrooms = async () => {
   console.log("Seeding showrooms...");
+
+  await prisma.counter.upsert({
+    where: { name: "showroomCounter" },
+    update: {},
+    create: { name: "showroomCounter", value: 0 },
+  });
+
   const showroomsData = [
     {
       name: "Porsche Centre Hà Nội",
@@ -34,10 +41,27 @@ const seedShowrooms = async () => {
     },
   ];
 
-  await prisma.showroom.createMany({
-    data: showroomsData,
-    skipDuplicates: true,
-  });
+  for (const showroomData of showroomsData) {
+    await prisma.$transaction(async (tx) => {
+      const counter = await tx.counter.update({
+        where: { name: "showroomCounter" },
+        data: { value: { increment: 1 } },
+      });
+
+      const showroomCode = `SC-${counter.value
+        .toString()
+        .padStart(3, "0")}-000`;
+
+      await tx.showroom.upsert({
+        where: { name: showroomData.name },
+        update: {},
+        create: {
+          ...showroomData,
+          showroomCode: showroomCode,
+        },
+      });
+    });
+  }
   console.log("Showrooms seeded.");
 };
 
