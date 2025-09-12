@@ -1,7 +1,7 @@
 const express = require("express");
-const versionController = require("../controllers/versionController");
+const versionController = require("../controllers/version.controller");
 const router = express.Router();
-const configuratorController = require("../controllers/configuratorController");
+const configuratorController = require("../controllers/configurator.controller");
 const prisma = require("../lib/prisma");
 const { Prisma } = require("@prisma/client");
 

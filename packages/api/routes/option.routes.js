@@ -1,5 +1,5 @@
 const express = require("express");
-const optionController = require("../controllers/optionController");
+const optionController = require("../controllers/option.controller");
 const upload = require("../middleware/uploadMulter");
 const router = express.Router();
 const { authMiddleware, authorize } = require("../middleware/authMiddleware");
