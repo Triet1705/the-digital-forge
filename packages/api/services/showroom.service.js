@@ -18,7 +18,22 @@ const getAll = async () => {
 };
 
 const getById = async (id) => {
-  const showroom = await prisma.showroom.findUnique({ where: { id } });
+  const showroom = await prisma.showroom.findUnique({
+    where: { id },
+    include: {
+      inventory: {
+        include: {
+          version: {
+            select: {
+              sku: true,
+              name: true,
+              quantity: true,
+            },
+          },
+        },
+      },
+    },
+  });
   if (!showroom) {
     throw new Error("ShowroomNotFound");
   }

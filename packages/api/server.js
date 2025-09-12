@@ -7,6 +7,10 @@ const optionCategoryRoutes = require("./routes/optionCategory.routes");
 const userRoutes = require("./routes/user.routes");
 const authRoutes = require("./routes/auth.routes");
 const showroomRoutes = require("./routes/showroom.routes");
+const {
+  adminRouter: adminInventoryRoutes,
+  publicRouter: publicInventoryRoutes,
+} = require("./routes/inventory.routes");
 const rateLimit = require("express-rate-limit");
 
 const app = express();
@@ -36,7 +40,11 @@ app.use("/api/option-categories", optionCategoryRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/showrooms", showroomRoutes);
+app.use("/api/inventory", publicInventoryRoutes);
 
+//ADMIN
+app.use("/api/admin/showrooms", showroomRoutes);
+app.use("/api/admin/inventory", adminInventoryRoutes);
 // app.listen(PORT, () => {
 //   console.log(`Backend server is running at http:localhost:${PORT}`);
 // });
