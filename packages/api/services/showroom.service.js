@@ -5,7 +5,16 @@ const create = async (data) => {
 };
 
 const getAll = async () => {
-  return await prisma.showroom.findMany();
+  return await prisma.showroom.findMany({
+    select: {
+      id: true,
+      name: true,
+      address: true,
+      latitude: true,
+      longitude: true,
+      isHeadquarter: true,
+    },
+  });
 };
 
 const getById = async (id) => {
