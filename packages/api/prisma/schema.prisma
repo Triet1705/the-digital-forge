@@ -205,7 +205,6 @@ model SavedConfiguration {
   totalPrice Decimal @db.Decimal(12, 2)
   createdAt  DateTime @default(now())
   order     Order?
-  payments  Payment[]
 }
 
 model Order {
@@ -243,12 +242,10 @@ model Payment {
   id              String   @id @default(cuid())
   order           Order    @relation(fields: [orderId], references: [id])
   orderId         String
-  configuration   SavedConfiguration @relation(fields: [configurationId], references: [id])
-  configurationId String
   amount          Decimal  @db.Decimal(12, 2)
-  paymentMethod   String   // e.g., "Stripe", "Bank Transfer"
+  paymentMethod   String   
   transactionId   String?  @unique
-  status          String   // e.g., "succeeded", "pending", "failed"
+  status          String   
   createdAt       DateTime @default(now())
 }
 
