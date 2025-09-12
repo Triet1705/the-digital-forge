@@ -1,0 +1,31 @@
+.collapse {
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 16px 0;
+  cursor: pointer;
+  background: none;
+  border: none;
+  text-align: left;
+}
+
+.title {
+  font-weight: 600 !important;
+}
+
+.iconWrapper {
+  transition: transform 0.3s ease;
+  // &.isOpen {
+  //   // Không cần xoay nữa vì ta đổi icon
+  // }
+}
+
+.content {
+  overflow: hidden;
+  padding-bottom: 16px;
+}

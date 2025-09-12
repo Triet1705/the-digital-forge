@@ -19,6 +19,8 @@ const seedCars = async (prisma) => {
           {
             sku: "V911-CARRERA-BASE",
             name: "911 Carrera",
+            bodyType: ["COUPE"],
+            seats: ["TWO_PLUS_TWO"],
             basePrice: new Prisma.Decimal("132000.00"),
             variantGroup: "Coupé",
             baseSpecs: [
@@ -199,6 +201,8 @@ const seedCars = async (prisma) => {
           {
             sku: "VTAYCAN-TURBO-S",
             name: "Taycan Turbo S",
+            bodyType: ["SPORT_SALOON"],
+            seats: ["FOUR_PLUS_ONE"],
             basePrice: new Prisma.Decimal("194900.00"),
             variantGroup: "Sedan",
             baseSpecs: [
@@ -398,6 +402,8 @@ const seedCars = async (prisma) => {
           {
             sku: "VPANAMERA-4-EHYBRID",
             name: "Panamera 4 E-Hybrid",
+            bodyType: ["SPORT_SALOON"],
+            seats: ["FOUR_PLUS_ONE"],
             basePrice: new Prisma.Decimal("115500.00"),
             variantGroup: "Sedan",
             baseSpecs: [
@@ -544,6 +550,8 @@ const seedCars = async (prisma) => {
           {
             sku: "VCAYENNE-BASE",
             name: "Cayenne",
+            bodyType: ["SUV"],
+            seats: ["FOUR_PLUS_ONE"],
             basePrice: new Prisma.Decimal("89500.00"),
             variantGroup: "SUV",
             baseSpecs: [

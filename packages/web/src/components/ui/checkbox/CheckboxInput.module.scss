@@ -1,0 +1,51 @@
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  position: relative;
+}
+
+.nativeCheckbox {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.customCheckbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: inherit;
+  position: relative;
+  overflow: visible;
+
+  // Hide SVG by default
+  svg {
+    // display: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    color: #fff;
+    fill: #fff;
+  }
+}
+
+.nativeCheckbox:checked + .customCheckbox {
+  background-color: #000;
+  border-color: #000;
+
+  svg {
+    opacity: 1;
+  }
+}
+
+.count {
+  color: #6c757d;
+  margin-left: auto;
+}

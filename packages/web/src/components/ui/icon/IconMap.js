@@ -7,6 +7,9 @@ import SearchIcon from "../../../assets/icons/SearchIcon";
 import PersonIcon from "../../../assets/icons/PersonIcon";
 import RightArrowIcon from "../../../assets/icons/RightArrowIcon";
 import CloseIcon from "../../../assets/icons/CloseIcon";
+import PlusIcon from "../../../assets/icons/PlusIcon";
+import MinusIcon from "../../../assets/icons/MinusIcon";
+import CheckIcon from "../../../assets/icons/CheckIcon";
 
 export const ICON_MAP = {
   facebook: FacebookIcon,
@@ -18,4 +21,7 @@ export const ICON_MAP = {
   person: PersonIcon,
   rightArrow: RightArrowIcon,
   close: CloseIcon,
+  plus: PlusIcon,
+  minus: MinusIcon,
+  check: CheckIcon,
 };

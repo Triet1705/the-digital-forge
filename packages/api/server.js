@@ -1,11 +1,16 @@
 const express = require("express");
 const cors = require("cors");
-const carRoutes = require("./routes/carRoutes");
-const versionRoutes = require("./routes/versionRoutes");
-const optionRoutes = require("./routes/optionRoutes");
-const optionCategoryRoutes = require("./routes/optionCategoryRoutes");
-const userRoutes = require("./routes/userRoutes");
-const authRoutes = require("./routes/authRoutes");
+const carRoutes = require("./routes/car.routes");
+const versionRoutes = require("./routes/version.routes");
+const optionRoutes = require("./routes/option.routes");
+const optionCategoryRoutes = require("./routes/optionCategory.routes");
+const userRoutes = require("./routes/user.routes");
+const authRoutes = require("./routes/auth.routes");
+const showroomRoutes = require("./routes/showroom.routes");
+const {
+  adminRouter: adminInventoryRoutes,
+  publicRouter: publicInventoryRoutes,
+} = require("./routes/inventory.routes");
 const rateLimit = require("express-rate-limit");
 
 const app = express();
@@ -34,7 +39,12 @@ app.use("/api/options", optionRoutes);
 app.use("/api/option-categories", optionCategoryRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/showrooms", showroomRoutes);
+app.use("/api/inventory", publicInventoryRoutes);
 
+//ADMIN
+app.use("/api/admin/showrooms", showroomRoutes);
+app.use("/api/admin/inventory", adminInventoryRoutes);
 // app.listen(PORT, () => {
 //   console.log(`Backend server is running at http:localhost:${PORT}`);
 // });

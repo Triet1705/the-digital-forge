@@ -7,6 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum AuthProvider {
+  CREDENTIALS 
+  GOOGLE
+}
+
 enum FuelType {
   GASOLINE
   HYBRID
@@ -24,13 +29,50 @@ enum SelectionType {
   MULTIPLE 
 }
 
+enum BodyType {
+  COUPE
+  ROADSTER
+  CABRIOLET
+  TARGA
+  GT
+  TURBO_COUPE
+  TURBO_CABRIOLET
+  SPORT_SALOON
+  SPORT_TURISMO
+  CROSS_TURISMO
+  EXECUTIVE
+  MACAN_ELECTRIC
+  SUV
+}
+
+enum SeatType {
+  TWO
+  TWO_PLUS_TWO
+  FOUR_PLUS_ONE
+  FIVE
+  FOUR
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  IN_DELIVERY
+  COMPLETED
+  CANCELLED
+}
+
+enum DeliveryType {
+  LOCAL
+  INTERNATIONAL
+}
+
 model Car {
   id        String    @id @default(cuid())
   sku       String    @unique
   name      String
 
   imageSet       Json?      
-  fuelType       FuelType[]   
+  fuelType       FuelType[]
   category       CarCategory 
   
 
@@ -43,11 +85,13 @@ model Version {
   id              String   @id @default(cuid())
   sku             String   @unique
   name            String
+  bodyType        BodyType[]
+  seats           SeatType[]
   basePrice       Decimal  @db.Decimal(12, 2)
   baseSpecs       Json?
   variantGroup    String
-  specs           Json     
-  showcaseImages  Json     
+  specs           Json?     
+  showcaseImages  Json?     
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
@@ -58,7 +102,10 @@ model Version {
   technicalSpecImage  String?   
   galleryImages       Json?    
   technicalDetails    Json?
-  detailedSpecs    Json?     
+  detailedSpecs       Json?
+  inventory           Inventory[]
+  savedConfigurations SavedConfiguration[]    
+  testDrives TestDrive[] 
 }
 
 model OptionCategory {
@@ -76,16 +123,24 @@ model Option {
   swatchImageUrl   String
   category         OptionCategory @relation(fields: [categoryId], references: [id])
   categoryId       String
+  savedConfigurations SavedConfiguration[] @relation()
 }
 
-enum Role {
-  USER
-  ADMIN
+model Role {
+  id          String       @id @default(cuid())
+  name        String       @unique
+  description String?
+  
+  users       User[]       @relation()
+  permissions Permission[] @relation()
 }
 
-enum AuthProvider {
-  CREDENTIALS 
-  GOOGLE
+model Permission {
+  id          String   @id @default(cuid())
+  name        String   @unique // "showroom:create", "inventory:update"
+  description String?
+  
+  roles       Role[]   @relation()
 }
 
 model User {
@@ -95,17 +150,138 @@ model User {
   firstName String
   lastName  String
   password  String?       
-  roles     Role[]   @default([USER])
+  roles     Role[]   @relation()
   
   provider  AuthProvider @default(CREDENTIALS)
   googleId  String?      @unique 
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  savedConfigurations SavedConfiguration[]
+  orders              Order[]
+  testDrives TestDrive[]
 }
 
 model Counter {
   id    String @id @default(cuid())
   name  String @unique 
   value Int    @default(0)
+}
+
+model Showroom {
+  id            String  @id @default(cuid())
+  showroomCode  String @unique
+  name          String  @unique
+  address       String
+  latitude      Float
+  longitude     Float
+  isHeadquarter Boolean @default(false)
+  inventory     Inventory[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  testDrives TestDrive[]
+}
+
+model Inventory {
+  id         String   @id @default(cuid())
+  quantity   Int      @default(0)
+  version    Version  @relation(fields: [versionId], references: [id])
+  versionId  String
+  showroom   Showroom @relation(fields: [showroomId], references: [id])
+  showroomId String
+
+  @@unique([versionId, showroomId])
+}
+
+model SavedConfiguration {
+  id        String   @id @default(cuid())
+  shareableCode String @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  version   Version  @relation(fields: [versionId], references: [id])
+  versionId String
+  options   Option[] @relation()
+  totalPrice Decimal @db.Decimal(12, 2)
+  createdAt  DateTime @default(now())
+  order     Order?
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  orderCode       String      @unique
+  user            User        @relation(fields: [userId], references: [id])
+  userId          String
+  configuration   SavedConfiguration @relation(fields: [configurationId], references: [id])
+  configurationId String      @unique
+  shippingAddress Json
+  status          OrderStatus @default(PENDING)
+  delivery        Delivery?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  payments Payment[] 
+  invoice  Invoice?
+  contract Contract?
+}
+
+model Delivery {
+  id               String       @id @default(cuid())
+  deliveryCode     String @unique
+  order            Order        @relation(fields: [orderId], references: [id])
+  orderId          String       @unique
+  type             DeliveryType
+  statusMessage    String
+  currentLocation  Json?
+  trackingHistory  Json?
+  estimatedArrival DateTime
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+}
+
+model Payment {
+  id              String   @id @default(cuid())
+  order           Order    @relation(fields: [orderId], references: [id])
+  orderId         String
+  amount          Decimal  @db.Decimal(12, 2)
+  paymentMethod   String   
+  transactionId   String?  @unique
+  status          String   
+  createdAt       DateTime @default(now())
+}
+
+model Invoice {
+  id        String   @id @default(cuid())
+  order     Order    @relation(fields: [orderId], references: [id])
+  orderId   String   @unique
+  invoiceNumber String @unique
+  issueDate DateTime @default(now())
+  dueDate   DateTime
+  details   Json     // Chi tiết các mục trong hóa đơn
+  total     Decimal  @db.Decimal(12, 2)
+  createdAt DateTime @default(now())
+}
+
+model Contract {
+  id           String   @id @default(cuid())
+  order        Order    @relation(fields: [orderId], references: [id])
+  orderId      String   @unique
+  contractCode String   @unique
+  content      String   // Nội dung hợp đồng
+  signedAt     DateTime?
+  createdAt    DateTime @default(now())
+}
+
+model TestDrive {
+  id          String   @id @default(cuid())
+  requestCode String   @unique
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  version     Version  @relation(fields: [versionId], references: [id])
+  versionId   String
+  showroom    Showroom @relation(fields: [showroomId], references: [id])
+  showroomId  String
+  preferredDate DateTime
+  status      String   @default("PENDING") // PENDING, CONFIRMED, COMPLETED, CANCELLED
+  notes       String?
+  createdAt   DateTime @default(now())
 }

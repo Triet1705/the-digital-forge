@@ -23,8 +23,12 @@ const create = async (userData) => {
       firstName: userData.firstName,
       lastName: userData.lastName,
       email: userData.email,
-      password: userData.password,
-      roles: userData.roles || ["USER"],
+      password: hashedPassword,
+      ...(userData.roles && {
+        roles: {
+          connect: userData.roles.map((roleId) => ({ id: roleId })),
+        },
+      }),
     },
     select: {
       id: true,

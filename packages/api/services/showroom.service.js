@@ -1,0 +1,62 @@
+const { prisma } = require("../lib/prisma");
+
+const create = async (data) => {
+  return await prisma.showroom.create({ data });
+};
+
+const getAll = async () => {
+  return await prisma.showroom.findMany({
+    select: {
+      id: true,
+      name: true,
+      address: true,
+      latitude: true,
+      longitude: true,
+      isHeadquarter: true,
+    },
+  });
+};
+
+const getById = async (id) => {
+  const showroom = await prisma.showroom.findUnique({
+    where: { id },
+    include: {
+      inventory: {
+        include: {
+          version: {
+            select: {
+              sku: true,
+              name: true,
+              quantity: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  if (!showroom) {
+    throw new Error("ShowroomNotFound");
+  }
+  return showroom;
+};
+
+const update = async (id, data) => {
+  await getById(id);
+  return await prisma.showroom.update({
+    where: { id },
+    data,
+  });
+};
+
+const remove = async (id) => {
+  await getById(id);
+  await prisma.showroom.delete({ where: { id } });
+};
+
+module.exports = {
+  create,
+  getAll,
+  getById,
+  update,
+  remove,
+};

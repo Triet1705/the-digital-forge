@@ -13,6 +13,8 @@ const getAll = async () => {
         select: {
           sku: true,
           name: true,
+          bodyType: true,
+          seats: true,
           descriptionTitle: true,
           baseSpecs: true,
           showcaseImages: true,
