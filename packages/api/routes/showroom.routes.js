@@ -1,5 +1,5 @@
 const express = require("express");
-const showroomController = require("../controllers/showroomController");
+const showroomController = require("../controllers/showroom.controller");
 const {
   authMiddleware,
   checkPermission,

@@ -5,6 +5,7 @@ const seedCars = require("./seeds/seedCars");
 const seedShowrooms = require("./seeds/seedShowrooms");
 const seedInventory = require("./seeds/seedInventory");
 const seedPermissionsAndRoles = require("./seeds/seedPermissionAndRoles");
+const seedCounters = require("./seeds/seedCounters");
 
 const prisma = new PrismaClient();
 
@@ -25,6 +26,7 @@ async function main() {
   await prisma.counter.deleteMany();
   console.log("Old data deleted successfully.");
 
+  await seedCounters(prisma);
   await seedPermissionsAndRoles(prisma);
   await seedUsers(prisma);
   await seedOptions(prisma);

@@ -34,6 +34,9 @@ const updateInventory = async (req, res) => {
     const updatedInventory = await inventoryService.update(params.id, body);
     res.status(200).json(updatedInventory);
   } catch (error) {
+    if (error.message === "InventoryNotFound") {
+      return res.status(404).json({ error: "Inventory not found." });
+    }
     console.error(error);
     res.status(500).json({ error: "Failed to update inventory." });
   }
@@ -45,6 +48,9 @@ const removeInventory = async (req, res) => {
     await inventoryService.remove(params.id);
     res.status(204).send();
   } catch (error) {
+    if (error.message === "InventoryNotFound") {
+      return res.status(404).json({ error: "Inventory not found." });
+    }
     console.error(error);
     res.status(500).json({ error: "Failed to delete inventory." });
   }

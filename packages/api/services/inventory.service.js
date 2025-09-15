@@ -20,6 +20,14 @@ const create = async (data) => {
 };
 
 const update = async (id, data) => {
+  const existingInventory = await prisma.inventory.findUnique({
+    where: { id },
+  });
+
+  if (!existingInventory) {
+    throw new Error("InventoryNotFound");
+  }
+
   return await prisma.inventory.update({
     where: { id },
     data: { quantity: data.quantity },

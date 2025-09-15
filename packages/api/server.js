@@ -11,6 +11,7 @@ const {
   adminRouter: adminInventoryRoutes,
   publicRouter: publicInventoryRoutes,
 } = require("./routes/inventory.routes");
+const configurationRoutes = require("./routes/configuration.routes");
 const rateLimit = require("express-rate-limit");
 
 const app = express();
@@ -38,6 +39,7 @@ app.use("/api/versions", versionRoutes);
 app.use("/api/options", optionRoutes);
 app.use("/api/option-categories", optionCategoryRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/configurations", configurationRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/showrooms", showroomRoutes);
 app.use("/api/inventory", publicInventoryRoutes);
